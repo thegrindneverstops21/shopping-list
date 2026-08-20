@@ -1,0 +1,14 @@
+{
+    "users": [],
+    "shoppingLists": [],
+    "items": [],
+    "categories": [
+        {"id": "c1", "name": "Produce" },
+        {"id": "c2", "name": "Dairy" },
+        {"id": "c3", "name": "Bakery" },
+        {"id": "c4", "name": "Household" },
+        {"id": "c5", "name": "Fruits" },
+        {"id": "c6", "name": "Vegetables" },
+        {"id": "c7", "name": "Other" }
+    ]
+}
