@@ -29,3 +29,10 @@ export const itemsApi = baseApi.injectEndpoints({
         }),
     }),
 })
+
+export const {
+    useGetItemsQuery,
+    useAddItemMutation, 
+    useUpdateItemMutation,
+    useDeleteItemMutation,
+} = itemsApi;

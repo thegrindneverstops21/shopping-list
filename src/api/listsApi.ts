@@ -36,3 +36,10 @@ export const listsApi = baseApi.injectEndpoints({
     }),
 })
 
+export const {
+    useGetListQuery,
+    useAddListMutation,
+    useUpdateListMutation,
+    useDeleteListMutation,
+    useShareListMutation,
+} = listsApi;

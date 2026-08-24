@@ -7,7 +7,7 @@ export const authApi = baseApi.injectEndpoints({
         findUserByEmail: builder.query<User[], string>({
             query: (email) => `/users?email=${email}`,
         }),
-        registeredUser: builder.mutation<User, RegisterPayload>({
+        registerUser: builder.mutation<User, RegisterPayload>({
             query: (payload) => ({
                 url: "/users",
                 method: "POST",
@@ -25,3 +25,8 @@ export const authApi = baseApi.injectEndpoints({
     }),
 })
 
+export const {
+    useLazyFindUserByEmailQuery,
+    useRegisterUserMutation,
+    useUpdateUserMutation
+} = authApi;
