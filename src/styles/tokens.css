@@ -1,26 +1,43 @@
 :root {
-    --color-bg: #f7f7f5;
-    --color-surface: #ffffff;
-    --color-text: #1f2320;
-    --color-text-muted: #6b7168;
-    --color-primary: #3a6b52;
-    --color-primary-hover: #2e5642;
-    --color-danger: #b3452c;
-    --color-border: #e2e0da;
+  --color-bg: #ddd5cc;
+  --color-surface: #ede4db;
+  --color-surface-hover: #e4dbd2;
+  --color-text: #1a1814;
+  --color-text-muted: #7a6e68;
+  --color-primary: #96775e;
+  --color-primary-hover: #7f6250;
+  --color-danger: #b3452c;
+  --color-danger-hover: #9a3a24;
+  --color-border: #c8bab2;
+  --color-overlay: rgba(0, 0, 0, 0.35);
 
-    --space-xs: 4px;
-    --space-sm: 8px;
-    --space-md: 16px;
-    --space-lg: 24px;
-    --space-xl: 40px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
 
-    --font-family: "Inter", system-ui, sans-serif;
-    --font-size-sm: 0.875rem;
-    --font-size-base: 1rem;
-    --font-size-lg: 1.25rem;
-    --font-size-xl: 1.75rem;
+  --font-family: "Inter", system-ui, sans-serif;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.75rem;
 
-    --radius-sm: 4px;
-    --radius-md: 8px;
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] {
+  --color-bg: #1e1a18;
+  --color-surface: #2c2623;
+  --color-surface-hover: #342e2b;
+  --color-text: #f0ebe7;
+  --color-text-muted: #a09088;
+  --color-primary: #c4987c;
+  --color-primary-hover: #d4a88c;
+  --color-border: #4a3f3a;
+  --color-overlay: rgba(0, 0, 0, 0.55);
 }
