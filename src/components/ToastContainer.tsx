@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { removeToast, type Toast } from "../ui/uiSlice";
 import { X } from "lucide-react";
-import { useAppDispatch } from "../app/hooks";
+import { useAppSelector, useAppDispatch } from "../app/hooks";
 
-function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: () => void }){
+function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: () => void }) {
     useEffect(() => {
         const timer = setTimeout(onDismiss, 4000);
         return () => clearTimeout(timer);
@@ -23,12 +23,12 @@ export default function ToastContainer() {
     const toasts = useAppSelector((state) => state.ui.toasts);
     const dispatch = useAppDispatch();
 
-    if(toasts.length === 0) return null;
+    if (toasts.length === 0) return null;
 
-    return(
+    return (
         <div className="toast-container">
             {toasts.map((toast) => (
-                <ToastItem 
+                <ToastItem
                     key={toast.id}
                     toast={toast}
                     onDismiss={() => dispatch(removeToast(toast.id))}
