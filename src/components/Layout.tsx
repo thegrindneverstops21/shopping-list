@@ -7,5 +7,5 @@ export default function Layout({ children }: { children: ReactNode}) {
             <Navbar />
             <main className="main-content">{children}</main>
         </div>
-    )
+    );
 }
