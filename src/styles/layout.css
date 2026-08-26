@@ -81,4 +81,12 @@
     transition: color 0.15s background 0.15s;
 }
 
-.navbar-actions
+.navbar-actions button:hover{
+    color: var(--color-primary);
+    background: var(--color-surface);
+}
+
+.main-content {
+    flex: 1;
+    padding: var(--space-lg);
+}
