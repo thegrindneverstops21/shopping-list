@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import type { ShoppingList } from "../types/list";
 
 const CATEGORIES = ["General", "Groceries", "Clothing", "Electronics", "Household", "Other"];
@@ -11,6 +11,10 @@ interface ListFormProps {
 }
 
 export default function ListForm({initial, onSubmit, loading, submitLabel}: ListFormProps) {
-    const [name, setName] = useState();
+    const [name, setName] = useState(initial?.name ?? "");
+    const [category, setCategory] = useState(initial?.category ?? "General");
+    const [nameError, setNameError] = useState("");
+
+    function handleSubmit(e: FormEvent)
 
 }
