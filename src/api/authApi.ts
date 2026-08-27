@@ -55,4 +55,5 @@ export const {
   useLazyFindUserByEmailQuery,
   useRegisterUserMutation,
   useUpdateUserMutation,
+  useDeleteAccountMutation
 } = authApi;
