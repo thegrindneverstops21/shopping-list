@@ -1,3 +1,12 @@
+import { useState } from "react";
+import type { ShoppingList } from "../types/list";
+import { useAppDispatch } from "../app/hooks";
+import { useShareListMutation } from "../api/listsApi";
+import { isValidEmail } from "../utils/validation";
+import { addToast } from "../ui/uiSlice";
+import FormField from "../components/FormField";
+import Button from "../components/Button";
+
 interface ShareModalProps {
   list: ShoppingList;
   onClose: () => void;
@@ -25,12 +34,12 @@ export default function ShareModal({ list, onClose }: ShareModalProps) {
   return (
     <div>
       {list.sharedWith.length > 0 && (
-        <div className="share-modal__current">
-          <p className="share-modal__label">Currently shared with:</p>
-          <ul className="share-modal__list">
+        <div className="share-modal= current">
+          <p className="share-modal-label">Currently shared with:</p>
+          <ul className="share-modal-list">
             {list.sharedWith.map((e) => (
               <li key={e}>
-                <span>{e}</span>
+                <span> {e}</span>
               </li>
             ))}
           </ul>
