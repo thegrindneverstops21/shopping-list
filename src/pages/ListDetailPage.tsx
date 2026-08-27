@@ -28,7 +28,7 @@ export default function ListDetailPage() {
   const dispatch = useAppDispatch();
 
   const { data: lists = [] } = useGetListQuery(user?.id ?? "", { skip: !user });
-  const list = lists.find((list: (typeof lists)[number]) => list.id === id);
+  const list = lists.find((list: (typeof lists)[number]) => String(list.id) === id);
 
   const q = searchParams.get("q") ?? "";
   const sortBy = (searchParams.get("sort") as "name" | "category" | "createdAt") ?? "name";

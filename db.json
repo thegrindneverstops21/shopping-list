@@ -1,14 +1,61 @@
 {
-    "users": [],
-    "shoppingLists": [],
-    "items": [],
-    "categories": [
-        {"id": "c1", "name": "Produce" },
-        {"id": "c2", "name": "Dairy" },
-        {"id": "c3", "name": "Bakery" },
-        {"id": "c4", "name": "Household" },
-        {"id": "c5", "name": "Fruits" },
-        {"id": "c6", "name": "Vegetables" },
-        {"id": "c7", "name": "Other" }
-    ]
+  "users": [
+    {
+      "name": "Sam",
+      "surname": "Junior",
+      "email": "ndlovusamjunior21@gmail.com",
+      "phoneNumber": "0798696422",
+      "password": "U2FsdGVkX180qfhc5bTyOPhdnv/ZrJZ+RWapkqT1jbA=",
+      "id": 1
+    }
+  ],
+  "shoppingLists": [
+    {
+      "name": "Chrismas clothes",
+      "category": "Clothing",
+      "userId": 1,
+      "createdAt": "2026-08-27T13:56:00.921Z",
+      "sharedWith": [],
+      "id": 1
+    },
+    {
+      "name": "food",
+      "category": "General",
+      "userId": 1,
+      "createdAt": "2026-08-27T13:56:31.254Z",
+      "sharedWith": [],
+      "id": 2
+    }
+  ],
+  "items": [],
+  "categories": [
+    {
+      "id": "c1",
+      "name": "Produce"
+    },
+    {
+      "id": "c2",
+      "name": "Dairy"
+    },
+    {
+      "id": "c3",
+      "name": "Bakery"
+    },
+    {
+      "id": "c4",
+      "name": "Household"
+    },
+    {
+      "id": "c5",
+      "name": "Fruits"
+    },
+    {
+      "id": "c6",
+      "name": "Vegetables"
+    },
+    {
+      "id": "c7",
+      "name": "Other"
+    }
+  ]
 }
