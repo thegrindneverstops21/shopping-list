@@ -7,11 +7,14 @@ import { addToast } from "../ui/uiSlice";
 import { decryptPassword } from "../utils/encryption";
 import { setSession } from "../auth/authSlice";
 import FormField from "../components/FormField";
+import { UserPlus } from "lucide-react";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState<{ email?: string; password?: string; }>({});
+    const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string; }>({});
+    const [formError, setFormError] = useState("");
+    const [accountNotFound, setAccountNotFound] = useState<string | null>(null);
     const [submission, setSubmission] = useState(false);
 
     const [findUserByEmail] = useLazyFindUserByEmailQuery();
@@ -20,24 +23,28 @@ export default function LoginPage() {
 
     async function onSubmit(e: FormEvent) {
         e.preventDefault();
-        const validationErrors: { email?: string; password?: string } = {};
-        if (!isValidEmail(email)) validationErrors.email = "Please enter a valid email address";
-        if (!password) validationErrors.password = "Password is required";
-        setErrors(validationErrors);
-        if (Object.keys(validationErrors).length > 0) return;
+        setFormError("")
+        setAccountNotFound(null);
+
+        if (!isValidEmail(email)) {
+            setFieldErrors({ email: "Please enter a valid email address" });
+            return;
+        }
+        setFieldErrors({});
 
         setSubmission(true);
         try {
             const matches = await findUserByEmail(email).unwrap();
             if (matches.length === 0) {
-                dispatch(addToast("No account found with that email", "error"));
+                setAccountNotFound(email);
                 return;
             }
 
             const user = matches[0];
             const decrypted = decryptPassword(user.password);
             if (decrypted !== password) {
-                dispatch(addToast("Incorrect password", "error"));
+                setFormError("Incorrect email or password.");
+                dispatch(addToast("Incorrect email or password", "error"));
                 return;
             }
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -55,8 +62,35 @@ export default function LoginPage() {
         <div className="auth-page">
             <form className="auth-card" onSubmit={onSubmit} noValidate>
                 <h1>Login Page</h1>
-                <FormField label="email address" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} error={errors.email} placeholder="example@gmail.com" />
-                <FormField label="password" name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} error={errors.password} />
+
+                {accountNotFound && (
+                    <div className="auth-alert">
+                        <p>We couldn't find an account for <strong>{accountNotFound}</strong></p>
+                        <Link to="/register" state={{ email: accountNotFound }} className="auth-alert-link">
+                            <UserPlus size={14} /> Craete acccount
+                        </Link>
+                    </div>
+                )}
+
+                {formError && !accountNotFound && <p className="form-error-banner">{formError}</p>}
+
+                <FormField
+                    label="email address"
+                    name="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => { setEmail(e.target.value); setAccountNotFound(null); }}
+                    error={fieldErrors.email}
+                    placeholder="example@gmail.com"
+                />
+                <FormField
+                    label="password"
+                    name="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+
                 <button type="submit" disabled={submission}>
                     {submission ? "Logging in..." : "login"}
                 </button>

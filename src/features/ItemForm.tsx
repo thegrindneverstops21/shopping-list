@@ -147,7 +147,7 @@ export default function ItemForm({
         />
       </div>
       <div className="form-field">
-        <label htmlFor="imageUrl">Image URL (optional)</label>
+        <label htmlFor="imageUrl">Image (optional)</label>
         <input
           id="imageUrl"
           name="imageUrl"
