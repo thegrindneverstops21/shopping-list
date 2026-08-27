@@ -94,7 +94,7 @@ export default function ProfilePage() {
             </aside>
 
             <div className="profile-contact">
-                {section === "personal"} ? (
+                {section === "personal" ? (
                 <div className="profile-panel">
                     <h2>Personal info</h2>
                     <div className="profile-info-row">
@@ -157,7 +157,7 @@ export default function ProfilePage() {
                         <Button onClick={handleUpdate} disabled={updating}>{updating ? "Saving..." : "Save changes"}</Button>
                     </div>
                 </div>
-                )
+                )}
             </div>
 
             <ConfirmDialog

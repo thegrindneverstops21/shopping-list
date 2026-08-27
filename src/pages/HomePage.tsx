@@ -50,7 +50,7 @@ export default function HomePage() {
           <p className="home-page-empty-text">
             {q ? `No lists matching "${q}"` : "oops, please add your first list"}
           </p>
-          <img src="/empty-list-state" alt="No shopping lists yet" className="home-page-empty-image" />
+          <img src="/empty-list-state.png" alt="No shopping lists yet" className="home-page-empty-image" />
   
           {!q && (
             <Button onClick={() => setAddOpen(true)}>add shopping list</Button>

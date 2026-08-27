@@ -29,7 +29,7 @@ export const authApi = baseApi.injectEndpoints({
         const lists = (listRes.data as { id: string }[]) ?? [];
 
         for (const list of lists) {
-          const itemRes = await baseQuery(`/items?listsId=${list.id}`);
+          const itemRes = await baseQuery(`/items?listId=${list.id}`);
           const items = (itemRes.data as { id: string }[]) ?? [];
 
           await Promise.all(
@@ -43,7 +43,7 @@ export const authApi = baseApi.injectEndpoints({
             method: "DELETE",
           });
         }
-        await baseQuery({ url: `/user/${userId}`, method: "DELETE" });
+        await baseQuery({ url: `/users/${userId}`, method: "DELETE" });
         return { data: undefined };
       },
       invalidatesTags: ["Users", "Lists", "Items"],
