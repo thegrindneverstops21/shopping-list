@@ -63,7 +63,7 @@ export default function ProfilePage() {
 
     async function handleDeleteAccount() {
         try {
-            await deleteAccount({ userId: user.id }).unwrap();
+            await deleteAccount({ userId }).unwrap();
             dispatch(clearSession());
             dispatch(addToast("Account deleted", "success"));
             navigate("/register");
