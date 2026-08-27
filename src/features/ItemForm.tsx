@@ -1,3 +1,8 @@
+import { useState, type ChangeEvent, type FormEvent } from "react";
+import categories from "../utils/categories";
+import FormField from "../components/FormField";
+import { ImagePlus } from "lucide-react";
+import Button from "../components/Button";
 
 
 interface ItemFormValues {
@@ -19,7 +24,7 @@ const defaultValues: ItemFormValues = {
   name: "",
   quantity: 1,
   notes: "",
-  category: CATEGORIES[0],
+  category: categories()[0],
   imageUrl: "",
 };
 
@@ -67,7 +72,7 @@ export default function ItemForm({ initial, onSubmit, loading, submitLabel = "Ad
       <div className="form-field">
         <label htmlFor="category">Category</label>
         <select id="category" name="category" value={values.category} onChange={onChange}>
-          {CATEGORIES.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
+          {categories().map((cat) => <option key={cat} value={cat}>{cat}</option>)}
         </select>
       </div>
 
@@ -86,11 +91,11 @@ export default function ItemForm({ initial, onSubmit, loading, submitLabel = "Ad
           onChange={onChange}
           placeholder="https://..."
         />
-        <label className="item-form__upload">
+        <label className="item-form-upload">
           <ImagePlus size={16} /> Or upload an image
           <input type="file" accept="image/*" onChange={onImageFile} hidden />
         </label>
-        {values.imageUrl && <img src={values.imageUrl} alt="Preview" className="item-form__preview" />}
+        {values.imageUrl && <img src={values.imageUrl} alt="Preview" className="item-form-preview" />}
       </div>
 
       <div className="form-actions">

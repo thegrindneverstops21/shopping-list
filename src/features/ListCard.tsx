@@ -1,3 +1,11 @@
+import { useState } from "react";
+import type { ShoppingList } from "../types/list";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../app/hooks";
+import { useGetItemsQuery } from "../api/itemsApi";
+import { useDeleteListMutation, useUpdateListMutation } from "../api/listsApi";
+import { addToast } from "../ui/uiSlice";
+
 interface ListCardProps {
   list: ShoppingList;
 }
@@ -41,7 +49,7 @@ export default function ListCard({ list }: ListCardProps) {
     <>
       <div className="list-card">
         <div
-          className="list-card__body"
+          className="list-card-body"
           onClick={navigateToList}
           role="button"
           tabIndex={0}
@@ -49,14 +57,14 @@ export default function ListCard({ list }: ListCardProps) {
           aria-label={`Open ${list.name}`}
         >
           {items.length === 0 ? (
-            <p className="list-card__no-items">No items yet</p>
+            <p className="list-card-no-items">No items yet</p>
           ) : (
-            <ul className="list-card__items">
-              {items.slice(0, 6).map((item) => (
+            <ul className="list-card-items">
+              {items.slice(0, 6).map((item: { id: string | number; name: string }) => (
                 <li key={item.id}>- {item.name}</li>
               ))}
               {items.length > 6 && (
-                <li className="list-card__more">+ {items.length - 6} more</li>
+                <li className="list-card-more">+ {items.length - 6} more</li>
               )}
             </ul>
           )}
