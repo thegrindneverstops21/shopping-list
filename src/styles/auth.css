@@ -90,6 +90,7 @@
   color: var(--color-text);
   cursor: pointer;
 }
+
 .form-field select:focus {
   outline: none;
   border-color: var(--color-primary);

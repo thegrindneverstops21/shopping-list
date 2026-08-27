@@ -1,3 +1,14 @@
+import { useState, type ComponentProps } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useGetListQuery } from "../api/listsApi";
+import { addToast } from "../ui/uiSlice";
+import { useAddItemMutation } from "../api/itemsApi";
+import { ArrowLeft, PackagePlus, Search } from "lucide-react";
+import Button from "../components/Button";
+import ItemCard from "../features/ItemCard";
+import Modal from "../components/Modal";
+import ItemForm from "../features/ItemForm";
 
 
 const SORT_OPTIONS: { value: "name" | "category" | "createdAt"; label: string }[] = [
@@ -15,14 +26,14 @@ export default function ListDetailPage() {
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
 
-  const { data: lists = [] } = useGetListsQuery(user?.id ?? "", { skip: !user });
-  const list = lists.find((l) => l.id === id);
+  const { data: lists = [] } = useGetListQuery(user?.id ?? "", { skip: !user });
+  const list = lists.find((list: (typeof lists)[number]) => list.id === id);
 
   const q = searchParams.get("q") ?? "";
   const sortBy = (searchParams.get("sort") as "name" | "category" | "createdAt") ?? "name";
   const order = (searchParams.get("order") as "asc" | "desc") ?? "asc";
 
-  const { data: items = [], isLoading } = useGetItemsQuery(
+  const { data: items = [], isLoading } = useGetListQuery(
     { listId: id ?? "", q: q || undefined, sortBy, order },
     { skip: !id }
   );
@@ -57,7 +68,7 @@ export default function ListDetailPage() {
   if (!list) {
     return (
       <div className="detail-page">
-        <button className="detail-page__back" onClick={() => navigate("/")}><ArrowLeft size={18} /> Back</button>
+        <button className="detail-page-back" onClick={() => navigate("/")}><ArrowLeft size={18} /> Back</button>
         <p>List not found.</p>
       </div>
     );
@@ -67,16 +78,16 @@ export default function ListDetailPage() {
     <div className="detail-page">
       <button className="detail-page__back" onClick={() => navigate("/")}><ArrowLeft size={18} /> Back</button>
 
-      <div className="detail-page__header">
+      <div className="detail-page-header">
         <div>
           <h2>{list.name}</h2>
-          <span className="detail-page__category-tag">{list.category}</span>
+          <span className="detail-page-category-tag">{list.category}</span>
         </div>
         <Button onClick={() => setAddOpen(true)}><PackagePlus size={16} /> Add item</Button>
       </div>
 
-      <div className="detail-page__controls">
-        <div className="detail-page__search">
+      <div className="detail-page-controls">
+        <div className="detail-page-search">
           <Search size={16} />
           <input type="text" value={q} onChange={(e) => onSearchChange(e.target.value)} placeholder="Search items in this list" />
         </div>
@@ -93,12 +104,12 @@ export default function ListDetailPage() {
       </div>
 
       {isLoading ? (
-        <p className="detail-page__loading">Loading items...</p>
+        <p className="detail-page-loading">Loading items...</p>
       ) : items.length === 0 ? (
-        <p className="detail-page__empty">{q ? `No items matching "${q}"` : "No items in this list yet — add your first one."}</p>
+        <p className="detail-page-empty">{q ? `No items matching "${q}"` : "No items in this list yet, add your first one."}</p>
       ) : (
-        <div className="detail-page__items">
-          {items.map((item) => <ItemCard key={item.id} item={item} />)}
+        <div className="detail-page-items">
+          {items.map((item: ComponentProps<typeof ItemCard>["item"]) => <ItemCard key={item.id} item={item} />)}
         </div>
       )}
 

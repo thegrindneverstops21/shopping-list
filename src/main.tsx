@@ -5,6 +5,8 @@ import "./styles/auth.css"
 import "./styles/global.css"
 import "./styles/tokens.css"
 import "./styles/layout.css"
+import "./styles/home.css"
+import "./styles/items.css"
 import App from './App.tsx'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'

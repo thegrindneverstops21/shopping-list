@@ -34,7 +34,7 @@ export default function ShareModal({ list, onClose }: ShareModalProps) {
   return (
     <div>
       {list.sharedWith.length > 0 && (
-        <div className="share-modal= current">
+        <div className="share-modal-current">
           <p className="share-modal-label">Currently shared with:</p>
           <ul className="share-modal-list">
             {list.sharedWith.map((e) => (
