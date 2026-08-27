@@ -57,7 +57,7 @@ export default function HomePage() {
         </div>
       ) : (
         <>
-          <div className="home-page__grid">
+          <div className="home-page-grid">
             {filteredLists.map((list: (typeof filteredLists)[number]) => (
               <div key={list.id} className="home-page-col">
                 <h3 className="home-page-list-title">{list.name}</h3>

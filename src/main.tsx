@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import "./styles/auth.css"
+                       import "./styles/auth.css"
 import "./styles/global.css"
 import "./styles/tokens.css"
 import "./styles/layout.css"

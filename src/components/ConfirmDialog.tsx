@@ -6,7 +6,7 @@ interface ConfirmDialogProps {
     onConfirm: () => void;
     title: string;
     message: string;
-    confirmLabel: string;
+    confirmLabel?: string;
     loading?: boolean;
 }
 

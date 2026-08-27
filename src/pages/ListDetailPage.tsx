@@ -77,7 +77,7 @@ export default function ListDetailPage() {
 
   return (
     <div className="detail-page">
-      <button className="detail-page__back" onClick={() => navigate("/")}><ArrowLeft size={18} /> Back</button>
+      <button className="detail-page-back" onClick={() => navigate("/")}><ArrowLeft size={18} /> Back</button>
 
       <div className="detail-page-header">
         <div>
@@ -93,12 +93,12 @@ export default function ListDetailPage() {
           <input type="text" value={q} onChange={(e) => onSearchChange(e.target.value)} placeholder="Search items in this list" />
         </div>
 
-        <div className="detail-page__sort">
+        <div className="detail-page-sort">
           <label htmlFor="sort-by">Sort by</label>
           <select id="sort-by" value={sortBy} onChange={(e) => onSortChange(e.target.value)}>
             {SORT_OPTIONS.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
           </select>
-          <button className="detail-page__order-btn" onClick={toggleOrder} aria-label="Toggle sort order">
+          <button className="detail-page-order-btn" onClick={toggleOrder} aria-label="Toggle sort order">
             {order === "asc" ? "↑" : "↓"}
           </button>
         </div>

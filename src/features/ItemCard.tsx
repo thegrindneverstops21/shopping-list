@@ -51,7 +51,7 @@ export default function ItemCard({ item }: { item: ShoppingItem }) {
 
         <div className="item-card-actions">
           <button onClick={() => setEditOpen(true)} aria-label="Edit item"><Pencil size={14} /></button>
-          <button onClick={() => setDeleteOpen(true)} aria-label="Delete item" className="item-card__btn--danger"><Trash2 size={14} /></button>
+          <button onClick={() => setDeleteOpen(true)} aria-label="Delete item" className="item-card-btn--danger"><Trash2 size={14} /></button>
         </div>
       </div>
 

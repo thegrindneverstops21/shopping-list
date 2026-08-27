@@ -128,7 +128,7 @@
   color: var(--color-text-muted);
 }
 
-.item-card__info {
+.item-card-info {
   flex: 1;
   min-width: 0;
 }

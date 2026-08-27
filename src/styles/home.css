@@ -101,7 +101,7 @@
   font-style: italic;
 }
 
-.list-card__no-items {
+.list-card-no-items {
   margin: 0;
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
