@@ -1,0 +1,101 @@
+
+
+interface ItemFormValues {
+  name: string;
+  quantity: number;
+  notes: string;
+  category: string;
+  imageUrl: string;
+}
+
+interface ItemFormProps {
+  initial?: Partial<ItemFormValues>;
+  onSubmit: (data: ItemFormValues) => void;
+  loading?: boolean;
+  submitLabel?: string;
+}
+
+const defaultValues: ItemFormValues = {
+  name: "",
+  quantity: 1,
+  notes: "",
+  category: CATEGORIES[0],
+  imageUrl: "",
+};
+
+export default function ItemForm({ initial, onSubmit, loading, submitLabel = "Add item" }: ItemFormProps) {
+  const [values, setValues] = useState<ItemFormValues>({ ...defaultValues, ...initial });
+  const [nameError, setNameError] = useState("");
+
+  function onChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+    const { name, value } = e.target;
+    setValues((prev) => ({ ...prev, [name]: name === "quantity" ? Number(value) : value }));
+  }
+
+  function onImageFile(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => setValues((prev) => ({ ...prev, imageUrl: reader.result as string }));
+    reader.readAsDataURL(file);
+  }
+
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    if (!values.name.trim()) { setNameError("Item name is required"); return; }
+    setNameError("");
+    onSubmit(values);
+  }
+
+  return (
+    <form onSubmit={handleSubmit} noValidate>
+      <FormField
+        label="Item name"
+        name="name"
+        value={values.name}
+        onChange={onChange}
+        error={nameError}
+        required
+        placeholder='e.g "Milk"'
+      />
+
+      <div className="form-field">
+        <label htmlFor="quantity">Quantity</label>
+        <input id="quantity" name="quantity" type="number" min={1} value={values.quantity} onChange={onChange} />
+      </div>
+
+      <div className="form-field">
+        <label htmlFor="category">Category</label>
+        <select id="category" name="category" value={values.category} onChange={onChange}>
+          {CATEGORIES.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
+        </select>
+      </div>
+
+      <div className="form-field">
+        <label htmlFor="notes">Notes (optional)</label>
+        <textarea id="notes" name="notes" value={values.notes} onChange={onChange} rows={2} placeholder="e.g full cream, 2L" />
+      </div>
+
+      <div className="form-field">
+        <label htmlFor="imageUrl">Image URL (optional)</label>
+        <input
+          id="imageUrl"
+          name="imageUrl"
+          type="text"
+          value={values.imageUrl.startsWith("data:") ? "" : values.imageUrl}
+          onChange={onChange}
+          placeholder="https://..."
+        />
+        <label className="item-form__upload">
+          <ImagePlus size={16} /> Or upload an image
+          <input type="file" accept="image/*" onChange={onImageFile} hidden />
+        </label>
+        {values.imageUrl && <img src={values.imageUrl} alt="Preview" className="item-form__preview" />}
+      </div>
+
+      <div className="form-actions">
+        <Button type="submit" disabled={loading}>{loading ? "Saving..." : submitLabel}</Button>
+      </div>
+    </form>
+  );
+}
