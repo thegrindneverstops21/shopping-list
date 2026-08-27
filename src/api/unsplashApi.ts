@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const UNSPLASH_ACCESS_KEY = import.meta.env
   .VITE_UNSPLASH_ACCESS_KEY as string;
@@ -6,7 +6,7 @@ export const UNSPLASH_ACCESS_KEY = import.meta.env
 export interface UnsplashPhoto {
   id: string;
   alt_description: string | null;
-  urls: { thumb: string; smaill: string; regular: string };
+  urls: { thumb: string; small: string; regular: string };
   user: { name: string; links: { html: string } };
   links: {download_location: string};
 }
