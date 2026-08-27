@@ -37,12 +37,25 @@ export default function ItemCard({ item }: { item: ShoppingItem }) {
   return (
     <>
       <div className= "item-card">
+        <input
+          className="item-card-check"
+          type="checkbox"
+          checked={item.checked ?? false}
+          onChange={async () => {
+            try {
+              await updateItem({ id: item.id, changes: { checked: !(item.checked ?? false) } }).unwrap();
+            } catch {
+              dispatch(addToast("Failed to update item", "error"));
+            }
+          }}
+          aria-label={`Mark ${item.name} as ${item.checked ? "incomplete" : "complete"}`}
+        />
         <div className= "item-card-image">
           {item.imageUrl ? <img src= {item.imageUrl} alt= {item.name} /> : <Package size={24} className="item-card-placeholder" />}
         </div>
 
         <div className="item-card-info">
-          <p className="item-card-name">
+          <p className={`item-card-name ${item.checked ? "item-card-name-checked" : ""}`}>
             {item.name} {item.quantity > 1 && <span className="item-card-qty">{item.quantity}</span>}
           </p>
           {item.notes && <p className="item-card-notes">{item.notes}</p>}

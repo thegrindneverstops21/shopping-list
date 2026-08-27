@@ -2,15 +2,19 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useAddListMutation, useGetListQuery } from "../api/listsApi";
+import { useAddItemMutation } from "../api/itemsApi";
 import { addToast } from "../ui/uiSlice";
 import Button from "../components/Button";
 import ListCard from "../features/ListCard";
 import Modal from "../components/Modal";
 import ListForm from "../features/ListForm";
+import ItemForm from "../features/ItemForm";
 import { Loader } from "lucide-react";
 
 export default function HomePage() {
   const [addOpen, setAddOpen] = useState(false);
+  const [addItemOpen, setAddItemOpen] = useState(false);
+  const [selectedListId, setSelectedListId] = useState("");
   const [searchParams] = useSearchParams();
   const q = searchParams.get("q")?.toLowerCase() ?? "";
 
@@ -19,6 +23,7 @@ export default function HomePage() {
 
   const { data: lists = [], isLoading } = useGetListQuery(user?.id ?? "", { skip: !user });
   const [addList, { isLoading: adding }] = useAddListMutation();
+  const [addItem, { isLoading: addingItem }] = useAddItemMutation();
 
   const filteredLists = q
     ? lists.filter((l: { name: string }) => l.name.toLowerCase().includes(q))
@@ -32,6 +37,22 @@ export default function HomePage() {
       setAddOpen(false);
     } catch {
       dispatch(addToast("Failed to create list", "error"));
+    }
+  }
+
+  function openAddItem() {
+    setSelectedListId(String(lists[0]?.id ?? ""));
+    setAddItemOpen(true);
+  }
+
+  async function handleAddItem(data: { name: string; quantity: number; notes: string; category: string; imageUrl: string }) {
+    if (!selectedListId) return;
+    try {
+      await addItem({ ...data, listId: selectedListId }).unwrap();
+      dispatch(addToast("Item added", "success"));
+      setAddItemOpen(false);
+    } catch {
+      dispatch(addToast("Failed to add item", "error"));
     }
   }
 
@@ -52,9 +73,10 @@ export default function HomePage() {
           </p>
           <img src="/empty-list-state.png" alt="No shopping lists yet" className="home-page-empty-image" />
   
-          {!q && (
-            <Button onClick={() => setAddOpen(true)}>add shopping list</Button>
-          )}
+          <div className="home-page-empty-actions">
+            {!q && <Button onClick={() => setAddOpen(true)}>add shopping list</Button>}
+            {lists.length > 0 && <Button onClick={openAddItem}>add item</Button>}
+          </div>
         </div>
       ) : (
         <>
@@ -68,12 +90,23 @@ export default function HomePage() {
           </div>
           <div className="home-page-add-cta">
             <Button onClick={() => setAddOpen(true)}>add shopping list</Button>
+            <Button onClick={openAddItem}>add item</Button>
           </div>
         </>
       )}
 
       <Modal isOpen={addOpen} onClose={() => setAddOpen(false)} title="New shopping list">
         <ListForm onSubmit={handleAddList} loading={adding} />
+      </Modal>
+
+      <Modal isOpen={addItemOpen} onClose={() => setAddItemOpen(false)} title="Add item">
+        <div className="home-page-item-list-picker">
+          <label htmlFor="item-list">Add to list</label>
+          <select id="item-list" value={selectedListId} onChange={(e) => setSelectedListId(e.target.value)}>
+            {lists.map((list) => <option key={list.id} value={String(list.id)}>{list.name}</option>)}
+          </select>
+        </div>
+        <ItemForm onSubmit={handleAddItem} loading={addingItem} />
       </Modal>
     </div>
   );

@@ -1,33 +1,37 @@
 {
   "users": [
     {
-      "name": "Sam",
-      "surname": "Junior",
-      "email": "ndlovusamjunior21@gmail.com",
+      "name": "Lulu",
+      "surname": "Phiri",
+      "email": "aghwhhgjsa@gmail.com",
       "phoneNumber": "0798696422",
-      "password": "U2FsdGVkX180qfhc5bTyOPhdnv/ZrJZ+RWapkqT1jbA=",
+      "password": "U2FsdGVkX1/iCAR8lSH1ov+R8y6/vk7nn52J7HUxO+0=",
       "id": 1
     }
   ],
   "shoppingLists": [
     {
-      "name": "Chrismas clothes",
-      "category": "Clothing",
+      "name": "Grocery",
+      "category": "Groceries",
       "userId": 1,
-      "createdAt": "2026-08-27T13:56:00.921Z",
+      "createdAt": "2026-08-27T14:25:14.392Z",
       "sharedWith": [],
       "id": 1
-    },
-    {
-      "name": "food",
-      "category": "General",
-      "userId": 1,
-      "createdAt": "2026-08-27T13:56:31.254Z",
-      "sharedWith": [],
-      "id": 2
     }
   ],
-  "items": [],
+  "items": [
+    {
+      "name": "Apples",
+      "quantity": 1,
+      "notes": "",
+      "category": "Groceries",
+      "imageUrl": "https://images.unsplash.com/photo-1630563451961-ac2ff27616ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8QXBwbGVzfGVufDB8fHx8MTc4Nzg0MDcwM3ww&ixlib=rb-4.1.0&q=80&w=400",
+      "listId": "1",
+      "createdAt": "2026-08-27T14:25:38.234Z",
+      "id": 1,
+      "checked": false
+    }
+  ],
   "categories": [
     {
       "id": "c1",
