@@ -5,6 +5,11 @@ import { useAppDispatch } from "../app/hooks";
 import { useGetItemsQuery } from "../api/itemsApi";
 import { useDeleteListMutation, useUpdateListMutation } from "../api/listsApi";
 import { addToast } from "../ui/uiSlice";
+import { Pencil, Share2, Trash2 } from "lucide-react";
+import Modal from "../components/Modal";
+import ListForm from "./ListForm";
+import ConfirmDialog from "../components/ConfirmDialog";
+import ShareModal from "./ShareModal";
 
 interface ListCardProps {
   list: ShoppingList;
@@ -47,74 +52,75 @@ export default function ListCard({ list }: ListCardProps) {
 
   return (
     <>
-      <div className="list-card">
+      <div className= "list-card">
         <div
-          className="list-card-body"
-          onClick={navigateToList}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => e.key === "Enter" && navigateToList()}
-          aria-label={`Open ${list.name}`}
+          className= "list-card-body"
+          onClick= {navigateToList}
+          role= "button"
+          tabIndex= {0}
+          onKeyDown= {(e) => e.key === "Enter" && navigateToList()}
+          aria-label= {`Open ${list.name}`}
         >
           {items.length === 0 ? (
-            <p className="list-card-no-items">No items yet</p>
+            <p className= "list-card-no-items">No items yet</p>
           ) : (
-            <ul className="list-card-items">
+            <ul className= "list-card-items">
               {items.slice(0, 6).map((item: { id: string | number; name: string }) => (
                 <li key={item.id}>- {item.name}</li>
               ))}
               {items.length > 6 && (
-                <li className="list-card-more">+ {items.length - 6} more</li>
+                <li className= "list-card-more">+ {items.length - 6} more</li>
               )}
             </ul>
           )}
         </div>
 
-        <div className="list-card__actions">
+        <div className= "list-card-actions">
           <button
-            className="list-card__btn"
-            onClick={(e) => { e.stopPropagation(); setEditOpen(true); }}
-            aria-label="Edit list"
+            className= "list-card-btn"
+            onClick= {(e) => { e.stopPropagation(); setEditOpen(true); }}
+            aria-label= "Edit list"
           >
-            <Pencil size={15} />
+            <Pencil size= {15} />
           </button>
           <button
-            className="list-card__btn list-card__btn--danger"
-            onClick={(e) => { e.stopPropagation(); setDeleteOpen(true); }}
-            aria-label="Delete list"
+            className= "list-card-btn list-card-btn-danger"
+            onClick= {(e) => { e.stopPropagation(); setDeleteOpen(true); }}
+            aria-label= "Delete list"
           >
-            <Trash2 size={15} />
+            <Trash2 size= {15} />
           </button>
           <button
-            className="list-card__btn"
-            onClick={(e) => { e.stopPropagation(); setShareOpen(true); }}
-            aria-label="Share list"
+            className= "list-card-btn"
+            onClick= {(e) => { e.stopPropagation(); setShareOpen(true); }}
+            aria-label= "Share list"
           >
-            <Share2 size={15} />
+            <Share2 size= {15} />
           </button>
         </div>
       </div>
 
-      <Modal isOpen={editOpen} onClose={() => setEditOpen(false)} title="Edit list">
+      <Modal isOpen= {editOpen} onClose= {() => setEditOpen(false)} title= "Edit list">
         <ListForm
-          initial={{ name: list.name, category: list.category }}
-          onSubmit={handleEdit}
-          loading={updating}
-          submitLabel="Save changes"
+          initial= {{ name: list.name, category: list.category }}
+          onSubmit= {handleEdit}
+          loading= {updating}
+          submitLabel= "Save changes"
         />
       </Modal>
 
       <ConfirmDialog
-        isOpen={deleteOpen}
-        onClose={() => setDeleteOpen(false)}
-        onConfirm={handleDelete}
-        title="Delete list"
-        message={`Are you sure you want to delete "${list.name}" and all its items? This cannot be undone.`}
-        loading={deleting}
+        isOpen= {deleteOpen}
+        onClose= {() => setDeleteOpen(false)}
+        onConfirm={ handleDelete}
+        title= "Delete list"
+        message= {`Are you sure you want to delete "${list.name}" and all its items? This cannot be undone.`}
+        confirmLabel= "Delete"
+        loading= {deleting}
       />
 
-      <Modal isOpen={shareOpen} onClose={() => setShareOpen(false)} title="Share list">
-        <ShareModal list={list} onClose={() => setShareOpen(false)} />
+      <Modal isOpen= {shareOpen} onClose= {() => setShareOpen(false)} title= "Share list">
+        <ShareModal list= {list} onClose= {() => setShareOpen(false)} />
       </Modal>
     </>
   );

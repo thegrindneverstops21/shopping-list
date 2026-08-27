@@ -36,9 +36,9 @@ export default function ItemCard({ item }: { item: ShoppingItem }) {
 
   return (
     <>
-      <div className="item-card">
-        <div className="item-card-image">
-          {item.imageUrl ? <img src={item.imageUrl} alt={item.name} /> : <Package size={24} className="item-card-placeholder" />}
+      <div className= "item-card">
+        <div className= "item-card-image">
+          {item.imageUrl ? <img src= {item.imageUrl} alt= {item.name} /> : <Package size={24} className="item-card-placeholder" />}
         </div>
 
         <div className="item-card-info">
