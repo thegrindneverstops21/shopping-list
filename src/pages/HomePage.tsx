@@ -3,11 +3,11 @@ import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useAddListMutation, useGetListQuery } from "../api/listsApi";
 import { addToast } from "../ui/uiSlice";
-import { ClipboardPlus, Loader } from "lucide-react";
 import Button from "../components/Button";
 import ListCard from "../features/ListCard";
 import Modal from "../components/Modal";
 import ListForm from "../features/ListForm";
+import { Loader } from "lucide-react";
 
 export default function HomePage() {
   const [addOpen, setAddOpen] = useState(false);
@@ -50,7 +50,8 @@ export default function HomePage() {
           <p className="home-page-empty-text">
             {q ? `No lists matching "${q}"` : "oops, please add your first list"}
           </p>
-          <ClipboardPlus size={88} strokeWidth={1} className="home-page-empty-icon" />
+          <img src="/empty-list-state" alt="No shopping lists yet" className="home-page-empty-image" />
+  
           {!q && (
             <Button onClick={() => setAddOpen(true)}>add shopping list</Button>
           )}

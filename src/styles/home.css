@@ -29,8 +29,10 @@
   color: var(--color-text-muted);
   margin: 0;
 }
-.home-page-empty-icon {
-  color: var(--color-text);
+.home-page-empty-image {
+  max-width: 220px;
+  width: 100%;
+  height: auto;
 }
 
 /* Grid */
