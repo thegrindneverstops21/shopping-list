@@ -18,7 +18,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setSession(state, action: PayloadAction<SafeUser>) {
-            state.user = null;
+            state.user = action.payload;
             state.isAuthenticated = true;
             localStorage.setItem("currentUser", JSON.stringify(action.payload));
         },

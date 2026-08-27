@@ -5,7 +5,7 @@ import { baseApi } from "./baseApi";
 export const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         findUserByEmail: builder.query<User[], string>({
-            query: (email) => `/users?email=${email}`,
+            query: (email) => `/users?email=${encodeURIComponent(email)}`,
         }),
         registerUser: builder.mutation<User, RegisterPayload>({
             query: (payload) => ({

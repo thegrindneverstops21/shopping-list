@@ -2,6 +2,7 @@ import { useState, type ComponentProps } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useGetListQuery } from "../api/listsApi";
+import { useGetItemsQuery } from "../api/itemsApi";
 import { addToast } from "../ui/uiSlice";
 import { useAddItemMutation } from "../api/itemsApi";
 import { ArrowLeft, PackagePlus, Search } from "lucide-react";
@@ -33,7 +34,7 @@ export default function ListDetailPage() {
   const sortBy = (searchParams.get("sort") as "name" | "category" | "createdAt") ?? "name";
   const order = (searchParams.get("order") as "asc" | "desc") ?? "asc";
 
-  const { data: items = [], isLoading } = useGetListQuery(
+  const { data: items = [], isLoading } = useGetItemsQuery(
     { listId: id ?? "", q: q || undefined, sortBy, order },
     { skip: !id }
   );

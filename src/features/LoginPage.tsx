@@ -60,7 +60,7 @@ export default function LoginPage() {
                 <button type="submit" disabled={submission}>
                     {submission ? "Logging in..." : "login"}
                 </button>
-                <p className="auth-switch">New here? <Link to="/login">Create account</Link></p>
+                <p className="auth-switch">New here? <Link to="/register">Create account</Link></p>
             </form>
         </div>
     )
