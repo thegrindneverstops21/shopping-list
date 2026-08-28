@@ -2,10 +2,10 @@ import { useState } from "react";
 import type { ShoppingList } from "../types/list";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../app/hooks";
-import { useGetItemsQuery } from "../api/itemsApi";
+import { useGetItemsQuery, useUpdateItemMutation } from "../api/itemsApi";
 import { useDeleteListMutation, useUpdateListMutation } from "../api/listsApi";
 import { addToast } from "../ui/uiSlice";
-import { Pencil, Share2, Trash2 } from "lucide-react";
+import { Ellipsis, NotepadText, Pencil, Share2, Trash2 } from "lucide-react";
 import Modal from "../components/Modal";
 import ListForm from "./ListForm";
 import ConfirmDialog from "../components/ConfirmDialog";
@@ -26,6 +26,7 @@ export default function ListCard({ list }: ListCardProps) {
   const { data: items = [] } = useGetItemsQuery({ listId: list.id });
   const [updateList, { isLoading: updating }] = useUpdateListMutation();
   const [deleteList, { isLoading: deleting }] = useDeleteListMutation();
+  const [updateItem] = useUpdateItemMutation();
 
   async function handleEdit(data: { name: string; category: string }) {
     try {
@@ -50,77 +51,98 @@ export default function ListCard({ list }: ListCardProps) {
     navigate(`/list/${list.id}`);
   }
 
+  const visibleItems = items.slice(0, 6);
+
   return (
     <>
-      <div className= "list-card">
-        <div
-          className= "list-card-body"
-          onClick= {navigateToList}
-          role= "button"
-          tabIndex= {0}
-          onKeyDown= {(e) => e.key === "Enter" && navigateToList()}
-          aria-label= {`Open ${list.name}`}
-        >
+      <div className="list-card">
+        <div className="list-card-body">
           {items.length === 0 ? (
-            <p className= "list-card-no-items">No items yet</p>
+            <p className="list-card-no-items">No items yet</p>
           ) : (
-            <ul className= "list-card-items">
-              {items.slice(0, 6).map((item: { id: string | number; name: string }) => (
-                <li key={item.id}>- {item.name}</li>
+            <ul className="list-card-items">
+              {visibleItems.map((item) => (
+                <li key={item.id} className="list-card-item">
+                  <label className="list-card-item-label" onClick={(e) => e.stopPropagation()}>
+                    <input
+                      type="checkbox"
+                      className="list-card-item-check"
+                      checked={item.checked ?? false}
+                      onChange={() => toggleItem(item.id, item.checked ?? false)}
+                      aria-label={`Mark ${item.name} as ${item.checked ? "incomplete" : "complete"}`}
+                    />
+                    <span className={item.checked ? "list-card-item-name-checked" : ""}>
+                      {item.name}
+                    </span>
+                  </label>
+                </li>
               ))}
               {items.length > 6 && (
-                <li className= "list-card-more">+ {items.length - 6} more</li>
+                <li
+                  className="list-card-more"
+                  onClick={() => navigateToList()}
+                  role="button"
+                  tabIndex={0}>
+                  <Ellipsis size={10} /> {items.length - 6} more
+                </li>
               )}
             </ul>
           )}
         </div>
 
-        <div className= "list-card-actions">
+        <div className="list-card-actions">
           <button
-            className= "list-card-btn"
-            onClick= {(e) => { e.stopPropagation(); setEditOpen(true); }}
-            aria-label= "Edit list"
+            className="list-card-btn"
+            onClick={() => navigateToList()} 
+            aria-label="Open list"
           >
-            <Pencil size= {15} />
+            <NotepadText size={0} style={{display: "none"}}/>
+          </button>
+           <button
+            className="list-card-btn"
+            onClick={(e) => {e.stopPropagation(); setEditOpen(true);}} 
+            aria-label="Edit list"
+          >
+            <Pencil size={15} />
           </button>
           <button
-            className= "list-card-btn list-card-btn-danger"
-            onClick= {(e) => { e.stopPropagation(); setDeleteOpen(true); }}
-            aria-label= "Delete list"
+            className="list-card-btn list-card-btn-danger"
+            onClick={(e) => { e.stopPropagation(); setDeleteOpen(true); }}
+            aria-label="Delete list"
           >
-            <Trash2 size= {15} />
+            <Trash2 size={15} />
           </button>
           <button
-            className= "list-card-btn"
-            onClick= {(e) => { e.stopPropagation(); setShareOpen(true); }}
-            aria-label= "Share list"
+            className="list-card-btn"
+            onClick={(e) => { e.stopPropagation(); setShareOpen(true); }}
+            aria-label="Share list"
           >
-            <Share2 size= {15} />
+            <Share2 size={15} />
           </button>
         </div>
       </div>
 
-      <Modal isOpen= {editOpen} onClose= {() => setEditOpen(false)} title= "Edit list">
+      <Modal isOpen={editOpen} onClose={() => setEditOpen(false)} title="Edit list">
         <ListForm
-          initial= {{ name: list.name, category: list.category }}
-          onSubmit= {handleEdit}
-          loading= {updating}
-          submitLabel= "Save changes"
+          initial={{ name: list.name, category: list.category }}
+          onSubmit={handleEdit}
+          loading={updating}
+          submitLabel="Save changes"
         />
       </Modal>
 
       <ConfirmDialog
-        isOpen= {deleteOpen}
-        onClose= {() => setDeleteOpen(false)}
-        onConfirm={ handleDelete}
-        title= "Delete list"
-        message= {`Are you sure you want to delete "${list.name}" and all its items? This cannot be undone.`}
-        confirmLabel= "Delete"
-        loading= {deleting}
+        isOpen={deleteOpen}
+        onClose={() => setDeleteOpen(false)}
+        onConfirm={handleDelete}
+        title="Delete list"
+        message={`Are you sure you want to delete "${list.name}" and all its items? This cannot be undone.`}
+        confirmLabel="Delete"
+        loading={deleting}
       />
 
-      <Modal isOpen= {shareOpen} onClose= {() => setShareOpen(false)} title= "Share list">
-        <ShareModal list= {list} onClose= {() => setShareOpen(false)} />
+      <Modal isOpen={shareOpen} onClose={() => setShareOpen(false)} title="Share list">
+        <ShareModal list={list} onClose={() => setShareOpen(false)} />
       </Modal>
     </>
   );
