@@ -5,7 +5,7 @@ import { useAppDispatch } from "../app/hooks";
 import { useGetItemsQuery, useUpdateItemMutation } from "../api/itemsApi";
 import { useDeleteListMutation, useUpdateListMutation } from "../api/listsApi";
 import { addToast } from "../ui/uiSlice";
-import { Ellipsis, NotepadText, Pencil, Share2, Trash2 } from "lucide-react";
+import { Pencil, Share2, Trash2, ExternalLink } from "lucide-react";
 import Modal from "../components/Modal";
 import ListForm from "./ListForm";
 import ConfirmDialog from "../components/ConfirmDialog";
@@ -47,11 +47,17 @@ export default function ListCard({ list }: ListCardProps) {
     }
   }
 
+  async function toggleItem(itemId: string, checked: boolean) {
+    try {
+      await updateItem({ id: itemId, changes: { checked: !checked } }).unwrap();
+    } catch {
+      dispatch(addToast("Failed to update item", "error"));
+    }
+  }
+
   function navigateToList() {
     navigate(`/list/${list.id}`);
   }
-
-  const visibleItems = items.slice(0, 6);
 
   return (
     <>
@@ -61,9 +67,9 @@ export default function ListCard({ list }: ListCardProps) {
             <p className="list-card-no-items">No items yet</p>
           ) : (
             <ul className="list-card-items">
-              {visibleItems.map((item) => (
+              {items.slice(0, 6).map((item) => (
                 <li key={item.id} className="list-card-item">
-                  <label className="list-card-item-label" onClick={(e) => e.stopPropagation()}>
+                  <label className="list-card-item-label">
                     <input
                       type="checkbox"
                       className="list-card-item-check"
@@ -78,12 +84,8 @@ export default function ListCard({ list }: ListCardProps) {
                 </li>
               ))}
               {items.length > 6 && (
-                <li
-                  className="list-card-more"
-                  onClick={() => navigateToList()}
-                  role="button"
-                  tabIndex={0}>
-                  <Ellipsis size={10} /> {items.length - 6} more
+                <li className="list-card-more" onClick={navigateToList} role="button" tabIndex={0}>
+                  + {items.length - 6} more
                 </li>
               )}
             </ul>
@@ -91,32 +93,16 @@ export default function ListCard({ list }: ListCardProps) {
         </div>
 
         <div className="list-card-actions">
-          <button
-            className="list-card-btn"
-            onClick={() => navigateToList()} 
-            aria-label="Open list"
-          >
-            <NotepadText size={15} />
+          <button className="list-card-btn" onClick={navigateToList} aria-label="Open list">
+            <ExternalLink size={15} />
           </button>
-           <button
-            className="list-card-btn"
-            onClick={() => setEditOpen(true)}
-            aria-label="Edit list"
-          >
+          <button className="list-card-btn" onClick={() => setEditOpen(true)} aria-label="Edit list">
             <Pencil size={15} />
           </button>
-          <button
-            className="list-card-btn list-card-btn-danger"
-            onClick={() => { setDeleteOpen(true); }}
-            aria-label="Delete list"
-          >
+          <button className="list-card-btn list-card-btn-danger" onClick={() => setDeleteOpen(true)} aria-label="Delete list">
             <Trash2 size={15} />
           </button>
-          <button
-            className="list-card-btn"
-            onClick={() => { setShareOpen(true); }}
-            aria-label="Share list"
-          >
+          <button className="list-card-btn" onClick={() => setShareOpen(true)} aria-label="Share list">
             <Share2 size={15} />
           </button>
         </div>
