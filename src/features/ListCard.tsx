@@ -96,25 +96,25 @@ export default function ListCard({ list }: ListCardProps) {
             onClick={() => navigateToList()} 
             aria-label="Open list"
           >
-            <NotepadText size={0} style={{display: "none"}}/>
+            <NotepadText size={15} />
           </button>
            <button
             className="list-card-btn"
-            onClick={(e) => {e.stopPropagation(); setEditOpen(true);}} 
+            onClick={() => setEditOpen(true)}
             aria-label="Edit list"
           >
             <Pencil size={15} />
           </button>
           <button
             className="list-card-btn list-card-btn-danger"
-            onClick={(e) => { e.stopPropagation(); setDeleteOpen(true); }}
+            onClick={() => { setDeleteOpen(true); }}
             aria-label="Delete list"
           >
             <Trash2 size={15} />
           </button>
           <button
             className="list-card-btn"
-            onClick={(e) => { e.stopPropagation(); setShareOpen(true); }}
+            onClick={() => { setShareOpen(true); }}
             aria-label="Share list"
           >
             <Share2 size={15} />
