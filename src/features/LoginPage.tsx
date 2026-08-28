@@ -67,7 +67,7 @@ export default function LoginPage() {
                     <div className="auth-alert">
                         <p>We couldn't find an account for <strong>{accountNotFound}</strong></p>
                         <Link to="/register" state={{ email: accountNotFound }} className="auth-alert-link">
-                            <UserPlus size={14} /> Craete acccount
+                            <UserPlus size={14} /> Create acccount
                         </Link>
                     </div>
                 )}
