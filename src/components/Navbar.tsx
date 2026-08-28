@@ -19,7 +19,7 @@ export default function Navbar() {
 
     return(
         <header className="navbar">
-            <button className="navbar-logo" onClick={() => navigate("/")} aria-label="Home">
+            <button className="navbar-logo" onClick={() => navigate("/")} aria-label="Home" title="Home">
                 <ShoppingCart size={28} />
             </button>
 
@@ -35,15 +35,15 @@ export default function Navbar() {
             </div>
 
             <nav className="navbar-actions">
-                <button onClick={() => navigate("/")} aria-label="My lists">
+                <button onClick={() => navigate("/")} aria-label="My lists" title="My lists">
                     <ListCheck size={22} />
                 </button>
                 
-                <button onClick={() => navigate("/profile")} aria-label="Profile">
+                <button onClick={() => navigate("/profile")} aria-label="Profile" title="Profile">
                     <User size={22} />
                 </button>
 
-                <button onClick={() => navigate("/profile")} aria-label="Settings">
+                <button onClick={() => navigate("/profile")} aria-label="Settings" title="Settings">
                     <Settings size={22} />
                 </button>
             </nav>

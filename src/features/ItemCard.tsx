@@ -49,6 +49,7 @@ export default function ItemCard({ item }: { item: ShoppingItem }) {
             }
           }}
           aria-label={`Mark ${item.name} as ${item.checked ? "incomplete" : "complete"}`}
+          title={`Mark ${item.name} as ${item.checked ? "incomplete" : "complete"}`}
         />
         <div className= "item-card-image">
           {item.imageUrl ? <img src= {item.imageUrl} alt= {item.name} /> : <Package size={24} className="item-card-placeholder" />}
@@ -63,8 +64,8 @@ export default function ItemCard({ item }: { item: ShoppingItem }) {
         </div>
 
         <div className="item-card-actions">
-          <button onClick={() => setEditOpen(true)} aria-label="Edit item"><Pencil size={14} /></button>
-          <button onClick={() => setDeleteOpen(true)} aria-label="Delete item" className="item-card-btn--danger"><Trash2 size={14} /></button>
+          <button onClick={() => setEditOpen(true)} aria-label="Edit item" title="Edit item"><Pencil size={14} /></button>
+          <button onClick={() => setDeleteOpen(true)} aria-label="Delete item" title="Delete item" className="item-card-btn--danger"><Trash2 size={14} /></button>
         </div>
       </div>
 

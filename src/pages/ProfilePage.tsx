@@ -93,7 +93,7 @@ export default function ProfilePage() {
                 </button>
             </aside>
 
-            <div className="profile-contact">
+            <div className="profile-content">
                 {section === "personal" ? (
                 <div className="profile-panel">
                     <h2>Personal info</h2>
@@ -109,7 +109,7 @@ export default function ProfilePage() {
                         <span className="profile-info-label">Phone number</span>
                         <span>{user.phoneNumber}</span>
                     </div>
-                    <button className="profile-my-list-link" onClick={() => navigate("/")}>
+                    <button className="profile-my-lists-link" onClick={() => navigate("/")}>
                         <ClipboardList size={16} />My lists
                     </button>
                 </div>

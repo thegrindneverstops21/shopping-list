@@ -12,7 +12,7 @@ function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: () => void }
     return (
         <div className={`toast toast-${toast.type}`} role="alert">
             <span>{toast.message}</span>
-            <button className="toast-close" onClick={onDismiss} aria-label="Dismiss">
+            <button className="toast-close" onClick={onDismiss} aria-label="Dismiss" title="Dismiss">
                 <X size={14} />
             </button>
         </div>

@@ -15,6 +15,14 @@
       "phoneNumber": "6562311551",
       "password": "U2FsdGVkX1/RnWI9JPp/Ib+hbHPIJZDn2NABjLPbhKA=",
       "id": 2
+    },
+    {
+      "name": "tay",
+      "surname": "lor",
+      "email": "lor@abc.com",
+      "phoneNumber": "0112345678",
+      "password": "U2FsdGVkX1/09luX2on25Xhxjnh/zDeXijRoWERm4fA=",
+      "id": 3
     }
   ],
   "shoppingLists": [
@@ -41,6 +49,54 @@
       "createdAt": "2026-08-28T06:11:19.934Z",
       "sharedWith": [],
       "id": 3
+    },
+    {
+      "name": "Chrismas clothes",
+      "category": "Clothing",
+      "userId": 3,
+      "createdAt": "2026-08-28T08:30:22.857Z",
+      "sharedWith": [],
+      "id": 4
+    },
+    {
+      "name": "Food",
+      "category": "Groceries",
+      "userId": 3,
+      "createdAt": "2026-08-28T09:01:19.586Z",
+      "sharedWith": [],
+      "id": 5
+    },
+    {
+      "name": "Electronics",
+      "category": "Electronics",
+      "userId": 3,
+      "createdAt": "2026-08-28T09:01:27.138Z",
+      "sharedWith": [],
+      "id": 6
+    },
+    {
+      "name": "Appliance",
+      "category": "Household",
+      "userId": 3,
+      "createdAt": "2026-08-28T09:01:38.635Z",
+      "sharedWith": [],
+      "id": 7
+    },
+    {
+      "name": "household",
+      "category": "Household",
+      "userId": 3,
+      "createdAt": "2026-08-28T09:01:56.514Z",
+      "sharedWith": [],
+      "id": 8
+    },
+    {
+      "name": "yard",
+      "category": "Household",
+      "userId": 3,
+      "createdAt": "2026-08-28T09:02:05.049Z",
+      "sharedWith": [],
+      "id": 9
     }
   ],
   "items": [
@@ -64,6 +120,79 @@
       "listId": "2",
       "createdAt": "2026-08-28T06:12:33.676Z",
       "id": 2
+    },
+    {
+      "name": "Adidas campus",
+      "quantity": 1,
+      "notes": "",
+      "category": "Clothing",
+      "imageUrl": "https://images.unsplash.com/photo-1621665422246-fde75fb7e7f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8QWRpZGFzJTIwY2FtcHVzfGVufDB8fHx8MTc4NzkwNTgwN3ww&ixlib=rb-4.1.0&q=80&w=400",
+      "listId": "4",
+      "createdAt": "2026-08-28T08:30:40.517Z",
+      "id": 3,
+      "checked": false
+    },
+    {
+      "name": "GUCCI",
+      "quantity": 1,
+      "notes": "",
+      "category": "General",
+      "imageUrl": "https://images.unsplash.com/photo-1557167668-6eb71e76b603?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8R1VDQ0l8ZW58MHx8fHwxNzg3OTA3MTUyfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "listId": "4",
+      "createdAt": "2026-08-28T08:53:05.061Z",
+      "id": 4
+    },
+    {
+      "name": "NIKE SHIRT",
+      "quantity": 1,
+      "notes": "",
+      "category": "General",
+      "imageUrl": "https://images.unsplash.com/photo-1606105961732-6332674f4ee6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8TklLRSUyMFNISVJUfGVufDB8fHx8MTc4NzkwNzE2Nnww&ixlib=rb-4.1.0&q=80&w=400",
+      "listId": "4",
+      "createdAt": "2026-08-28T08:53:19.603Z",
+      "id": 5,
+      "checked": true
+    },
+    {
+      "name": "soccer boots",
+      "quantity": 1,
+      "notes": "",
+      "category": "General",
+      "imageUrl": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8c29jY2VyJTIwYm9vdHN8ZW58MHx8fHwxNzg3OTA3MTc4fDA&ixlib=rb-4.1.0&q=80&w=400",
+      "listId": "4",
+      "createdAt": "2026-08-28T08:53:31.674Z",
+      "id": 6
+    },
+    {
+      "name": "socks",
+      "quantity": 1,
+      "notes": "",
+      "category": "General",
+      "imageUrl": "https://images.unsplash.com/photo-1585499583264-491df5142e83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8c29ja3N8ZW58MHx8fHwxNzg3OTA3MTg1fDA&ixlib=rb-4.1.0&q=80&w=400",
+      "listId": "4",
+      "createdAt": "2026-08-28T08:53:38.297Z",
+      "id": 7
+    },
+    {
+      "name": "watch",
+      "quantity": 1,
+      "notes": "",
+      "category": "General",
+      "imageUrl": "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8d2F0Y2h8ZW58MHx8fHwxNzg3OTA3MTkzfDA&ixlib=rb-4.1.0&q=80&w=400",
+      "listId": "4",
+      "createdAt": "2026-08-28T08:53:46.717Z",
+      "id": 8,
+      "checked": true
+    },
+    {
+      "name": "flip flops",
+      "quantity": 1,
+      "notes": "",
+      "category": "General",
+      "imageUrl": "https://images.unsplash.com/photo-1692536631218-ce4264088abe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8ZmxpcCUyMGZsb3BzfGVufDB8fHx8MTc4NzkwNzIwMnww&ixlib=rb-4.1.0&q=80&w=400",
+      "listId": "4",
+      "createdAt": "2026-08-28T08:53:55.521Z",
+      "id": 9
     }
   ],
   "categories": [
