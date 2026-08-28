@@ -130,7 +130,7 @@
       "listId": "4",
       "createdAt": "2026-08-28T08:30:40.517Z",
       "id": 3,
-      "checked": false
+      "checked": true
     },
     {
       "name": "GUCCI",
@@ -161,7 +161,8 @@
       "imageUrl": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8c29jY2VyJTIwYm9vdHN8ZW58MHx8fHwxNzg3OTA3MTc4fDA&ixlib=rb-4.1.0&q=80&w=400",
       "listId": "4",
       "createdAt": "2026-08-28T08:53:31.674Z",
-      "id": 6
+      "id": 6,
+      "checked": true
     },
     {
       "name": "socks",
@@ -171,7 +172,8 @@
       "imageUrl": "https://images.unsplash.com/photo-1585499583264-491df5142e83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8c29ja3N8ZW58MHx8fHwxNzg3OTA3MTg1fDA&ixlib=rb-4.1.0&q=80&w=400",
       "listId": "4",
       "createdAt": "2026-08-28T08:53:38.297Z",
-      "id": 7
+      "id": 7,
+      "checked": true
     },
     {
       "name": "watch",

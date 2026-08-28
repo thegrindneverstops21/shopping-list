@@ -42,6 +42,22 @@
   justify-content: center;
 }
 
+.home-page-add-button {
+  transition: background 0.15s, opacity 0.15s, transform 0.15s;
+}
+
+.home-page-add-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.home-page-add-button svg {
+  transition: transform 0.15s;
+}
+
+.home-page-add-button:hover:not(:disabled) svg {
+  transform: scale(1.1);
+}
+
 /* Grid */
 .home-page-grid {
   display: grid;

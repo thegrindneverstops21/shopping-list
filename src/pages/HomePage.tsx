@@ -9,7 +9,7 @@ import ListCard from "../features/ListCard";
 import Modal from "../components/Modal";
 import ListForm from "../features/ListForm";
 import ItemForm from "../features/ItemForm";
-import { Loader } from "lucide-react";
+import { ListPlus, Loader, PackagePlus } from "lucide-react";
 
 export default function HomePage() {
   const [addOpen, setAddOpen] = useState(false);
@@ -74,8 +74,8 @@ export default function HomePage() {
           <img src="/empty-list-state.png" alt="No shopping lists yet" className="home-page-empty-image" />
   
           <div className="home-page-empty-actions">
-            {!q && <Button onClick={() => setAddOpen(true)}>add shopping list</Button>}
-            {lists.length > 0 && <Button onClick={openAddItem}>add item</Button>}
+            {!q && <Button className="home-page-add-button" onClick={() => setAddOpen(true)} title="Add shopping list"><ListPlus size={16} /> add shopping list</Button>}
+            {lists.length > 0 && <Button className="home-page-add-button" onClick={openAddItem} title="Add item"><PackagePlus size={16} /> add item</Button>}
           </div>
         </div>
       ) : (
@@ -89,8 +89,8 @@ export default function HomePage() {
             ))}
           </div>
           <div className="home-page-add-cta">
-            <Button onClick={() => setAddOpen(true)}>add shopping list</Button>
-            <Button onClick={openAddItem}>add item</Button>
+            <Button className="home-page-add-button" onClick={() => setAddOpen(true)} title="Add shopping list"><ListPlus size={16} /> add shopping list</Button>
+            <Button className="home-page-add-button" onClick={openAddItem} title="Add item"><PackagePlus size={16} /> add item</Button>
           </div>
         </>
       )}
