@@ -7,6 +7,14 @@
       "phoneNumber": "0798696422",
       "password": "U2FsdGVkX1/iCAR8lSH1ov+R8y6/vk7nn52J7HUxO+0=",
       "id": 1
+    },
+    {
+      "name": "lily",
+      "surname": "awsds",
+      "email": "exsbhgb@gmail.com",
+      "phoneNumber": "6562311551",
+      "password": "U2FsdGVkX1/RnWI9JPp/Ib+hbHPIJZDn2NABjLPbhKA=",
+      "id": 2
     }
   ],
   "shoppingLists": [
@@ -17,6 +25,22 @@
       "createdAt": "2026-08-27T14:25:14.392Z",
       "sharedWith": [],
       "id": 1
+    },
+    {
+      "name": "Clothes",
+      "category": "Clothing",
+      "userId": 2,
+      "createdAt": "2026-08-28T06:11:02.278Z",
+      "sharedWith": [],
+      "id": 2
+    },
+    {
+      "name": "Electronics",
+      "category": "Electronics",
+      "userId": 2,
+      "createdAt": "2026-08-28T06:11:19.934Z",
+      "sharedWith": [],
+      "id": 3
     }
   ],
   "items": [
@@ -30,6 +54,16 @@
       "createdAt": "2026-08-27T14:25:38.234Z",
       "id": 1,
       "checked": false
+    },
+    {
+      "name": "Nike",
+      "quantity": 4,
+      "notes": "",
+      "category": "Clothing",
+      "imageUrl": "",
+      "listId": "2",
+      "createdAt": "2026-08-28T06:12:33.676Z",
+      "id": 2
     }
   ],
   "categories": [
