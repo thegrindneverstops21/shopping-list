@@ -69,9 +69,9 @@ export default function HomePage() {
       {filteredLists.length === 0 ? (
         <div className="home-page-empty">
           <p className="home-page-empty-text">
-            {q ? `No lists matching "${q}"` : "oops, please add your first list"}
+            {q ? `No lists match "${q}". Try another search.` : "Your next great shop starts here. Create your first list and make it yours."}
           </p>
-          <img src="/empty-list-state.png" alt="No shopping lists yet" className="home-page-empty-image" />
+          <img src="/empty-list-state.png" alt="A shopping list ready to be created" className="home-page-empty-image" />
   
           <div className="home-page-empty-actions">
             {!q && <Button className="home-page-add-button" onClick={() => setAddOpen(true)} title="Add shopping list"><ListPlus size={16} /> add shopping list</Button>}

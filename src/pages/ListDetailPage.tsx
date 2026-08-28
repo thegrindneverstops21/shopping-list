@@ -107,7 +107,7 @@ export default function ListDetailPage() {
       {isLoading ? (
         <p className="detail-page-loading">Loading items...</p>
       ) : items.length === 0 ? (
-        <p className="detail-page-empty">{q ? `No items matching "${q}"` : "No items in this list yet, add your first one."}</p>
+        <p className="detail-page-empty">{q ? `No items match "${q}". Try another search.` : "This list is waiting for its first item. Add something you need for your next shop."}</p>
       ) : (
         <div className="detail-page-items">
           {items.map((item: ComponentProps<typeof ItemCard>["item"]) => <ItemCard key={item.id} item={item} />)}
