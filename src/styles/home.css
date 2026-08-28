@@ -2,14 +2,14 @@
 .home-page {
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 72px);
+  min-height: 100%;
 }
 
 .home-page-loader {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 72px);
+  min-height: 100%;
   color: var(--color-text-muted);
 }
 
