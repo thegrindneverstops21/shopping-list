@@ -260,7 +260,18 @@
       "imageUrl": "",
       "listId": "10",
       "createdAt": "2026-09-05T17:27:42.468Z",
-      "id": 14
+      "id": 14,
+      "checked": false
+    },
+    {
+      "name": "w",
+      "quantity": 1,
+      "notes": "",
+      "category": "General",
+      "imageUrl": "",
+      "listId": "10",
+      "createdAt": "2026-09-05T19:04:52.774Z",
+      "id": 15
     }
   ],
   "categories": [
