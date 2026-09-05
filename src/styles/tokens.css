@@ -7,6 +7,7 @@
   --color-primary: #96775e;
   --color-primary-hover: #7f6250;
   --color-danger: #b3452c;
+  --color-danger-bg: #fbeee9;
   --color-danger-hover: #9a3a24;
   --color-border: #c8bab2;
   --color-overlay: rgba(0, 0, 0, 0.35);
@@ -17,7 +18,7 @@
   --space-lg: 24px;
   --space-xl: 40px;
 
-  --font-family: "Inter", system-ui, sans-serif;
+  --font-family: "Merienda", system-ui, sans-serif;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
   --font-size-lg: 1.25rem;
@@ -38,6 +39,7 @@
   --color-text-muted: #a09088;
   --color-primary: #c4987c;
   --color-primary-hover: #d4a88c;
+  --color-danger-bg: #3a2420;
   --color-border: #4a3f3a;
   --color-overlay: rgba(0, 0, 0, 0.55);
 }

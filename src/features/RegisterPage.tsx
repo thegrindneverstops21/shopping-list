@@ -2,7 +2,7 @@ import { useState, type ChangeEvent, type FormEvent } from "react";
 import { validateRegisterForm, type RegisterFormErrors } from "../utils/validation";
 import { useLazyFindUserByEmailQuery, useRegisterUserMutation } from "../api/authApi";
 import { useAppDispatch } from "../app/hooks";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { addToast } from "../ui/uiSlice";
 import { setSession } from "../auth/authSlice";
 import FormField from "../components/FormField";
@@ -16,17 +16,19 @@ interface RegisterFormValues {
     confirmPassword: string;
 }
 
-const initialValues: RegisterFormValues = {
-    name: "",
-    surname: "",
-    email: "",
-    phoneNumber: "",
-    password: "",
-    confirmPassword: ""
-};
+
 
 export default function RegisterPage() {
-    const [values, setValues] = useState<RegisterFormValues>(initialValues);
+    const location = useLocation();
+    const prefillEmail = (location.state as { email?: string } | null)?.email ?? "";
+    const [values, setValues] = useState<RegisterFormValues>({
+        name: "",
+        surname: "",
+        email: prefillEmail,
+        phoneNumber: "",
+        password: "",
+        confirmPassword: ""
+    });
     const [errors, setErrors] = useState<RegisterFormErrors>({});
     const [submission, setSubmission] = useState(false);
 

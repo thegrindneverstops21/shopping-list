@@ -7,6 +7,7 @@ export interface ShoppingItem {
     category: string;
     imageUrl?: string;
     createdAt: string;
+    checked?: boolean;
 }
 
 export type NewShoppingItem = Omit<ShoppingItem, "id" | "createdAt">;
