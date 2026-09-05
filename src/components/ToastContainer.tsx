@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { removeToast, type Toast } from "../ui/uiSlice";
 import { X } from "lucide-react";
-import { useAppDispatch } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: () => void }) {
     useEffect(() => {
