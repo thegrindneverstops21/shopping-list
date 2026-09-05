@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { addToast } from "../ui/uiSlice";
 import { setSession } from "../auth/authSlice";
 import FormField from "../components/FormField";
+import { ShoppingCart } from "lucide-react";
 
 interface RegisterFormValues {
     name: string;
@@ -73,8 +74,16 @@ export default function RegisterPage() {
     }
     return (
         <div className="auth-page">
+            <div className="auth-shell">
+                <div className="auth-brand">
+                    <ShoppingCart size={40} />
+                    <h1>Let's get you set up</h1>
+                    <p>Create an account to build, organize, and share your shopping lists</p>
+                </div>
+            </div>
+
+            {/*registration form*/}
             <form className="auth-card" onSubmit={onSubmit} noValidate>
-                <h1>Registration Page</h1>
                 <FormField label="name" name="name" value={values.name} onChange={onChange} error={errors?.name} required placeholder="Sam" />
                 <FormField label="surname" name="surname" value={values.surname} onChange={onChange} error={errors?.surname} required placeholder="Junior" />
                 <FormField label="email address" name="email" type="email" value={values.email} onChange={onChange} error={errors?.email} required placeholder="example@gmail.com" />
