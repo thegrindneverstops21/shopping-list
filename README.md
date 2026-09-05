@@ -7,7 +7,7 @@ Create an account, build shopping lists, tick items off right from the home page
 ## Live demo
 
 - **App:** (https://shopping-list-seven-blond.vercel.app/login)
-- **API:** `<your-render-json-server-url>` (Render free tier — see [Known limitations](#known-limitations))
+- **API:** 
 
 ## Tech stack
 
