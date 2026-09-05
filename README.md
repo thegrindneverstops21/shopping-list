@@ -6,8 +6,8 @@ Create an account, build shopping lists, tick items off right from the home page
 
 ## Live demo
 
-- **App:** (https://shopping-list-seven-blond.vercel.app/login)
-- **API:** 
+- **App:** https://shopping-list-seven-blond.vercel.app/login
+- **API:** https://shopping-list-3lsy.onrender.com/
 
 ## Tech stack
 

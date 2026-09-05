@@ -7,7 +7,7 @@ import { addToast } from "../ui/uiSlice";
 import { decryptPassword } from "../utils/encryption";
 import { setSession } from "../auth/authSlice";
 import FormField from "../components/FormField";
-import { UserPlus } from "lucide-react";
+import { ShoppingCart, UserPlus } from "lucide-react";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -60,9 +60,16 @@ export default function LoginPage() {
     }
     return (
         <div className="auth-page">
-            <form className="auth-card" onSubmit={onSubmit} noValidate>
-                <h1>Login Page</h1>
+            <div className="auth-shell">
+                <div className="auth-brand">
+                    <ShoppingCart size={40} />
+                    <h1>Shopper</h1>
+                    <p>Log in to pick up your shopping lists where you left off</p>
+                </div>
+            </div>
 
+            {/*login form*/}
+            <form className="auth-card" onSubmit={onSubmit} noValidate>              
                 {accountNotFound && (
                     <div className="auth-alert">
                         <p>We couldn't find an account for <strong>{accountNotFound}</strong></p>
@@ -99,4 +106,3 @@ export default function LoginPage() {
         </div>
     )
 }
-

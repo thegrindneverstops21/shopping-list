@@ -23,6 +23,14 @@
       "phoneNumber": "0112345678",
       "password": "U2FsdGVkX1/09luX2on25Xhxjnh/zDeXijRoWERm4fA=",
       "id": 3
+    },
+    {
+      "name": "Luna",
+      "surname": "Elara",
+      "email": "abc@gmail.com",
+      "phoneNumber": "0723456879",
+      "password": "U2FsdGVkX18McNS0ynEA9FWWRpDi6/TGKcKGhHXF2kU=",
+      "id": 4
     }
   ],
   "shoppingLists": [
@@ -97,6 +105,14 @@
       "createdAt": "2026-08-28T09:02:05.049Z",
       "sharedWith": [],
       "id": 9
+    },
+    {
+      "name": "Clothes",
+      "category": "Clothing",
+      "userId": 4,
+      "createdAt": "2026-09-05T17:27:03.343Z",
+      "sharedWith": [],
+      "id": 10
     }
   ],
   "items": [
@@ -235,6 +251,16 @@
       "listId": "5",
       "createdAt": "2026-08-28T09:26:41.316Z",
       "id": 13
+    },
+    {
+      "name": "Nike Airmax",
+      "quantity": 1,
+      "notes": "i want them shoes",
+      "category": "Clothing",
+      "imageUrl": "",
+      "listId": "10",
+      "createdAt": "2026-09-05T17:27:42.468Z",
+      "id": 14
     }
   ],
   "categories": [
