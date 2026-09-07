@@ -5,7 +5,7 @@ import { useGetListQuery } from "../api/listsApi";
 import { useGetItemsQuery } from "../api/itemsApi";
 import { addToast } from "../ui/uiSlice";
 import { useAddItemMutation } from "../api/itemsApi";
-import { ArrowLeft, PackagePlus, Search } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowUp, PackagePlus, Search } from "lucide-react";
 import Button from "../components/Button";
 import ItemCard from "../features/ItemCard";
 import Modal from "../components/Modal";
@@ -77,30 +77,37 @@ export default function ListDetailPage() {
   }
 
   return (
-    <div className="detail-page">
-      <button className="detail-page-back" onClick={() => navigate("/")} title="Back to my lists"><ArrowLeft size={18} /> Back</button>
-
-      <div className="detail-page-header">
-        <div>
-          <h2>{list.name}</h2>
-          <span className="detail-page-category-tag">{list.category}</span>
-        </div>
-        <Button onClick={() => setAddOpen(true)}><PackagePlus size={16} /> Add item</Button>
-      </div>
-
-      <div className="detail-page-controls">
-        <div className="detail-page-search">
+    <div className="detail-page-shell">
+      <header className="detail-navbar">
+        <button className="detail-navbar-back" onClick={() => navigate("/")} aria-label="Back to my lists" title="Back to my lists"><ArrowLeft size={22} /></button>
+        <div className="detail-navbar-search">
           <Search size={16} />
-          <input type="text" value={q} onChange={(e) => onSearchChange(e.target.value)} placeholder="Search items in this list" />
+          <input
+            type="text"
+            value={q}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder={`Search in "${list.name}"`}
+          /> 
         </div>
+      </header>
 
+      <div className="detail-page">
+        <div className="detail-page-header">
+          <div>
+            <h2>{list.name}</h2>
+            <span className="detail-page-category-tag">{list.category}</span>
+          </div>
+          <Button onClick={() => setAddOpen(true)}><PackagePlus size={16} /> Add item</Button>
+        </div>
+        
+      <div className="detail-page-controls">
         <div className="detail-page-sort">
           <label htmlFor="sort-by">Sort by</label>
           <select id="sort-by" value={sortBy} onChange={(e) => onSortChange(e.target.value)}>
             {SORT_OPTIONS.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
           </select>
           <button className="detail-page-order-btn" onClick={toggleOrder} aria-label="Toggle sort order" title={`Sort ${order === "asc" ? "descending" : "ascending"}`}>
-            {order === "asc" ? "↑" : "↓"}
+            {order === "asc" ? <ArrowUp size={16} /> : <ArrowDown size={16} />}
           </button>
         </div>
       </div>
@@ -122,6 +129,7 @@ export default function ListDetailPage() {
       <Modal isOpen={addOpen} onClose={() => setAddOpen(false)} title="Add item">
         <ItemForm onSubmit={handleAddItem} loading={adding} />
       </Modal>
+    </div>
     </div>
   );
 }
