@@ -30,7 +30,7 @@
       "email": "ndlovusamjunior21@gmail.com",
       "phoneNumber": "0798696422",
       "password": "U2FsdGVkX18TwT4BAJJIeOIiNh8jDr7cnDvrEVvbqq8=",
-      "id": 11
+      "id": 4
     },
     {
       "name": "Luna",
@@ -89,6 +89,14 @@
       "createdAt": "2026-08-28T09:02:05.049Z",
       "sharedWith": [],
       "id": 9
+    },
+    {
+      "name": "Chrismas clothes",
+      "category": "Clothing",
+      "userId": 4,
+      "createdAt": "2026-09-07T09:47:59.860Z",
+      "sharedWith": [],
+      "id": 10
     }
   ],
   "items": [
@@ -217,6 +225,16 @@
       "listId": "5",
       "createdAt": "2026-08-28T09:26:41.316Z",
       "id": 13
+    },
+    {
+      "name": "Adidas Campus",
+      "quantity": 1,
+      "notes": "",
+      "category": "Clothing",
+      "imageUrl": "https://images.unsplash.com/photo-1620794341491-76be6eeb6946?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8QWRpZGFzJTIwQ2FtcHVzfGVufDB8fHx8MTc4ODc3NDQ3N3ww&ixlib=rb-4.1.0&q=80&w=400",
+      "listId": "10",
+      "createdAt": "2026-09-07T09:48:27.669Z",
+      "id": 14
     }
   ],
   "categories": [

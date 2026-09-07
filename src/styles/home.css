@@ -74,6 +74,18 @@
   transform: scale(1.1);
 }
 
+.empty-state-image {
+  display: flex;
+  justify-content: center;
+}
+
+.home-page-empty-image {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  color: var(--color-primary);
+}
+
 /* Grid */
 .home-page-grid {
   display: grid;
