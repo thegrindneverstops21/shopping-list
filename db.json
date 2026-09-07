@@ -30,7 +30,7 @@
       "email": "ndlovusamjunior21@gmail.com",
       "phoneNumber": "0798696422",
       "password": "U2FsdGVkX18TwT4BAJJIeOIiNh8jDr7cnDvrEVvbqq8=",
-      "id": 4
+      "id": 11
     },
     {
       "name": "Luna",
@@ -67,14 +67,6 @@
       "id": 3
     },
     {
-      "name": "Electronics",
-      "category": "Electronics",
-      "userId": 4,
-      "createdAt": "2026-09-07T07:53:34.864Z",
-      "sharedWith": [],
-      "id": 6
-    },
-    {
       "name": "Appliance",
       "category": "Household",
       "userId": 3,
@@ -97,14 +89,6 @@
       "createdAt": "2026-08-28T09:02:05.049Z",
       "sharedWith": [],
       "id": 9
-    },
-    {
-      "name": "Clothes",
-      "category": "Clothing",
-      "userId": 4,
-      "createdAt": "2026-09-05T17:27:03.343Z",
-      "sharedWith": [],
-      "id": 10
     }
   ],
   "items": [
@@ -215,16 +199,6 @@
       "id": 10
     },
     {
-      "name": " acer",
-      "quantity": 1,
-      "notes": "",
-      "category": "General",
-      "imageUrl": "https://images.unsplash.com/photo-1629751372750-3ddb8f8bfd0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8YWNlcnxlbnwwfHx8fDE3ODc5MDkxMTB8MA&ixlib=rb-4.1.0&q=80&w=400",
-      "listId": "6",
-      "createdAt": "2026-08-28T09:25:43.361Z",
-      "id": 11
-    },
-    {
       "name": "apples",
       "quantity": 1,
       "notes": "",
@@ -243,27 +217,6 @@
       "listId": "5",
       "createdAt": "2026-08-28T09:26:41.316Z",
       "id": 13
-    },
-    {
-      "name": "Nike Airmax",
-      "quantity": 1,
-      "notes": "i want them shoes",
-      "category": "Clothing",
-      "imageUrl": "",
-      "listId": "10",
-      "createdAt": "2026-09-05T17:27:42.468Z",
-      "id": 14,
-      "checked": false
-    },
-    {
-      "name": "w",
-      "quantity": 1,
-      "notes": "",
-      "category": "General",
-      "imageUrl": "",
-      "listId": "10",
-      "createdAt": "2026-09-05T19:04:52.774Z",
-      "id": 15
     }
   ],
   "categories": [
