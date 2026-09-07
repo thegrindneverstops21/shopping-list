@@ -78,29 +78,29 @@ export default function ListDetailPage() {
 
   return (
     <div className="detail-page-shell">
-      <header className="detail-navbar">
-        <button className="detail-navbar-back" onClick={() => navigate("/")} aria-label="Back to my lists" title="Back to my lists"><ArrowLeft size={22} /></button>
-        <div className="detail-navbar-search">
-          <Search size={16} />
-          <input
-            type="text"
-            value={q}
-            onChange={(e) => onSearchChange(e.target.value)}
-            placeholder={`Search in "${list.name}"`}
-          /> 
-        </div>
-      </header>
-
       <div className="detail-page">
         <div className="detail-page-header">
-          <div>
+          <div className="detail-page-heading">
+            <button className="detail-page-back" onClick={() => navigate("/")} aria-label="Back to my lists" title="Back to my lists"><ArrowLeft size={20} /></button>
+            <div>
             <h2>{list.name}</h2>
             <span className="detail-page-category-tag">{list.category}</span>
+            </div>
           </div>
           <Button onClick={() => setAddOpen(true)}><PackagePlus size={16} /> Add item</Button>
         </div>
         
       <div className="detail-page-controls">
+        <label className="detail-page-search" htmlFor="item-search">
+          <Search size={16} />
+          <input
+            id="item-search"
+            type="search"
+            value={q}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder={`Search in ${list.name}`}
+          />
+        </label>
         <div className="detail-page-sort">
           <label htmlFor="sort-by">Sort by</label>
           <select id="sort-by" value={sortBy} onChange={(e) => onSortChange(e.target.value)}>
