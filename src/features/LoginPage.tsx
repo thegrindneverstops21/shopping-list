@@ -7,7 +7,7 @@ import { addToast } from "../ui/uiSlice";
 import { decryptPassword } from "../utils/encryption";
 import { setSession } from "../auth/authSlice";
 import FormField from "../components/FormField";
-import { UserPlus } from "lucide-react";
+import { ArrowRight, Check, ShoppingBasket, UserPlus } from "lucide-react";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -60,8 +60,22 @@ export default function LoginPage() {
     }
     return (
         <div className="auth-page">
+            <section className="auth-brand" aria-label="Shopper introduction">
+                <div className="auth-brand-mark"><ShoppingBasket size={25} /></div>
+                <p className="auth-eyebrow">your everyday list, made easy</p>
+                <h1>Make room for what matters.</h1>
+                <p className="auth-brand-copy">Keep every grocery run clear, calm, and ready when you are.</p>
+                <ul className="auth-benefits">
+                    <li><Check size={16} /> Organise lists in seconds</li>
+                    <li><Check size={16} /> Pick up right where you left off</li>
+                </ul>
+            </section>
             <form className="auth-card" onSubmit={onSubmit} noValidate>
-                <h1>Login Page</h1>
+                <div className="auth-card-heading">
+                    <p className="auth-eyebrow">welcome back</p>
+                    <h2>Log in to Shopper</h2>
+                    <p>Good to see you again. Your lists are waiting.</p>
+                </div>
 
                 {accountNotFound && (
                     <div className="auth-alert">
@@ -92,7 +106,7 @@ export default function LoginPage() {
                 />
 
                 <button type="submit" disabled={submission}>
-                    {submission ? "Logging in..." : "login"}
+                    {submission ? "Logging in..." : <>Log in <ArrowRight size={17} /></>}
                 </button>
                 <p className="auth-switch">New here? <Link to="/register">Create account</Link></p>
             </form>

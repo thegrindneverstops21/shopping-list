@@ -90,6 +90,15 @@
   padding: var(--space-xl) 0;
 }
 
+.detail-page-empty {
+  gap: var(--space-xs);
+}
+
+.detail-page-empty .empty-state-title {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+}
+
 .detail-page-items {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));

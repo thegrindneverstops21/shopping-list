@@ -23,6 +23,14 @@
       "phoneNumber": "0112345678",
       "password": "U2FsdGVkX1/09luX2on25Xhxjnh/zDeXijRoWERm4fA=",
       "id": 3
+    },
+    {
+      "name": "Sannie",
+      "surname": "Phiri",
+      "email": "ndlovusamjunior21@gmail.com",
+      "phoneNumber": "0798696422",
+      "password": "U2FsdGVkX18TwT4BAJJIeOIiNh8jDr7cnDvrEVvbqq8=",
+      "id": 4
     }
   ],
   "shoppingLists": [
@@ -49,6 +57,14 @@
       "createdAt": "2026-08-28T06:11:19.934Z",
       "sharedWith": [],
       "id": 3
+    },
+    {
+      "name": "Electronics",
+      "category": "Electronics",
+      "userId": 4,
+      "createdAt": "2026-09-07T07:53:34.864Z",
+      "sharedWith": [],
+      "id": 4
     }
   ],
   "items": [
@@ -72,26 +88,6 @@
       "listId": "2",
       "createdAt": "2026-08-28T06:12:33.676Z",
       "id": 2
-    },
-    {
-      "name": "hp",
-      "quantity": 1,
-      "notes": "",
-      "category": "Electronics",
-      "imageUrl": "https://images.unsplash.com/photo-1654277040981-82984a49c63a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8aHB8ZW58MHx8fHwxNzg3OTA5MDg0fDA&ixlib=rb-4.1.0&q=80&w=400",
-      "listId": "4",
-      "createdAt": "2026-08-28T09:25:17.769Z",
-      "id": 10
-    },
-    {
-      "name": "apples",
-      "quantity": 1,
-      "notes": "",
-      "category": "Groceries",
-      "imageUrl": "https://images.unsplash.com/photo-1630563451961-ac2ff27616ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8YXBwbGVzfGVufDB8fHx8MTc4NzkwOTEyMHww&ixlib=rb-4.1.0&q=80&w=400",
-      "listId": "4",
-      "createdAt": "2026-08-28T09:25:53.977Z",
-      "id": 12
     }
   ],
   "categories": [

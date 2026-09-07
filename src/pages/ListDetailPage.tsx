@@ -10,6 +10,7 @@ import Button from "../components/Button";
 import ItemCard from "../features/ItemCard";
 import Modal from "../components/Modal";
 import ItemForm from "../features/ItemForm";
+import EmptyState from "../components/EmptyState";
 
 
 const SORT_OPTIONS: { value: "name" | "category" | "createdAt"; label: string }[] = [
@@ -107,7 +108,11 @@ export default function ListDetailPage() {
       {isLoading ? (
         <p className="detail-page-loading">Loading items...</p>
       ) : items.length === 0 ? (
-        <p className="detail-page-empty">{q ? `No items match "${q}". Try another search.` : "This list is waiting for its first item. Add something you need for your next shop."}</p>
+        <EmptyState
+          className="detail-page-empty"
+          title={q ? `No items match "${q}".` : "This list is ready for its first item."}
+          description={q ? "Try another search or clear the search field." : "Add something you need for your next shop."}
+        />
       ) : (
         <div className="detail-page-items">
           {items.map((item: ComponentProps<typeof ItemCard>["item"]) => <ItemCard key={item.id} item={item} />)}

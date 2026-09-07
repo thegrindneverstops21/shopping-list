@@ -10,6 +10,7 @@ import Modal from "../components/Modal";
 import ListForm from "../features/ListForm";
 import ItemForm from "../features/ItemForm";
 import { ListPlus, Loader, PackagePlus } from "lucide-react";
+import EmptyState from "../components/EmptyState";
 
 export default function HomePage() {
   const [addOpen, setAddOpen] = useState(false);
@@ -67,17 +68,15 @@ export default function HomePage() {
   return (
     <div className="home-page">
       {filteredLists.length === 0 ? (
-        <div className="home-page-empty">
-          <p className="home-page-empty-text">
-            {q ? `No lists match "${q}". Try another search.` : "Your next great shop starts here. Create your first list and make it yours."}
-          </p>
+        <EmptyState
+          className="home-page-empty"
+          title={q ? `No lists match "${q}".` : "Your next great shop starts here."}
+          description={q ? "Try another search or clear the search field." : "Create your first list and make it yours."}
+        >
           <img src="/empty.png" alt="A shopping list ready to be created" className="home-page-empty-image" />
-  
-          <div className="home-page-empty-actions">
-            {!q && <Button className="home-page-add-button" onClick={() => setAddOpen(true)} title="Add shopping list"><ListPlus size={16} /> add shopping list</Button>}
-            {lists.length > 0 && <Button className="home-page-add-button" onClick={openAddItem} title="Add item"><PackagePlus size={16} /> add item</Button>}
-          </div>
-        </div>
+          {!q && <Button className="home-page-add-button" onClick={() => setAddOpen(true)} title="Add shopping list"><ListPlus size={16} /> add shopping list</Button>}
+          {lists.length > 0 && <Button className="home-page-add-button" onClick={openAddItem} title="Add item"><PackagePlus size={16} /> add item</Button>}
+        </EmptyState>
       ) : (
         <>
           <div className="home-page-grid">

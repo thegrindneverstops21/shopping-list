@@ -10,6 +10,7 @@ import Modal from "../components/Modal";
 import ListForm from "./ListForm";
 import ConfirmDialog from "../components/ConfirmDialog";
 import ShareModal from "./ShareModal";
+import EmptyState from "../components/EmptyState";
 
 interface ListCardProps {
   list: ShoppingList;
@@ -64,7 +65,7 @@ export default function ListCard({ list }: ListCardProps) {
       <div className="list-card">
         <div className="list-card-body">
           {items.length === 0 ? (
-            <p className="list-card-no-items">This list is ready for its first item.</p>
+            <EmptyState className="list-card-no-items" title="No items yet" description="Open the list to add your first item." />
           ) : (
             <ul className="list-card-items">
               {items.slice(0, 6).map((item) => (
