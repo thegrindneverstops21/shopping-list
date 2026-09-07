@@ -11,6 +11,7 @@ import ListForm from "../features/ListForm";
 import ItemForm from "../features/ItemForm";
 import { ListPlus, Loader, PackagePlus } from "lucide-react";
 import EmptyState from "../components/EmptyState";
+import SleepyListIllustration from "../components/SleepyListIllustration";
 
 export default function HomePage() {
   const [addOpen, setAddOpen] = useState(false);
@@ -22,7 +23,9 @@ export default function HomePage() {
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
 
-  const { data: lists = [], isLoading } = useGetListQuery(user?.id ?? "", { skip: !user });
+  const { data: lists = [], isLoading } = useGetListQuery(user?.id ?? "", {
+    skip: !user,
+  });
   const [addList, { isLoading: adding }] = useAddListMutation();
   const [addItem, { isLoading: addingItem }] = useAddItemMutation();
 
@@ -46,7 +49,13 @@ export default function HomePage() {
     setAddItemOpen(true);
   }
 
-  async function handleAddItem(data: { name: string; quantity: number; notes: string; category: string; imageUrl: string }) {
+  async function handleAddItem(data: {
+    name: string;
+    quantity: number;
+    notes: string;
+    category: string;
+    imageUrl: string;
+  }) {
     if (!selectedListId) return;
     try {
       await addItem({ ...data, listId: selectedListId }).unwrap();
@@ -70,12 +79,34 @@ export default function HomePage() {
       {filteredLists.length === 0 ? (
         <EmptyState
           className="home-page-empty"
-          title={q ? `No lists match "${q}".` : "Your next great shop starts here."}
-          description={q ? "Try another search or clear the search field." : "Create your first list and make it yours."}
+          title={
+            q ? `No lists match "${q}".` : "Your next great shop starts here."
+          }
+          description={
+            q
+              ? "Try another search or clear the search field."
+              : "Create your first list and make it yours."
+          }
+          image={<SleepyListIllustration className="home-page-empty-image" />}
         >
-          <img src="/empty.png" alt="A shopping list ready to be created" className="home-page-empty-image" />
-          {!q && <Button className="home-page-add-button" onClick={() => setAddOpen(true)} title="Add shopping list"><ListPlus size={16} /> add shopping list</Button>}
-          {lists.length > 0 && <Button className="home-page-add-button" onClick={openAddItem} title="Add item"><PackagePlus size={16} /> add item</Button>}
+          {!q && (
+            <Button
+              className="home-page-add-button"
+              onClick={() => setAddOpen(true)}
+              title="Add shopping list"
+            >
+              <ListPlus size={16} /> add shopping list
+            </Button>
+          )}
+          {lists.length > 0 && (
+            <Button
+              className="home-page-add-button"
+              onClick={openAddItem}
+              title="Add item"
+            >
+              <PackagePlus size={16} /> add item
+            </Button>
+          )}
         </EmptyState>
       ) : (
         <>
@@ -88,21 +119,49 @@ export default function HomePage() {
             ))}
           </div>
           <div className="home-page-add-cta">
-            <Button className="home-page-add-button" onClick={() => setAddOpen(true)} title="Add shopping list"><ListPlus size={16} /> add shopping list</Button>
-            <Button className="home-page-add-button" onClick={openAddItem} title="Add item"><PackagePlus size={16} /> add item</Button>
+            <Button
+              className="home-page-add-button"
+              onClick={() => setAddOpen(true)}
+              title="Add shopping list"
+            >
+              <ListPlus size={16} /> add shopping list
+            </Button>
+            <Button
+              className="home-page-add-button"
+              onClick={openAddItem}
+              title="Add item"
+            >
+              <PackagePlus size={16} /> add item
+            </Button>
           </div>
         </>
       )}
 
-      <Modal isOpen={addOpen} onClose={() => setAddOpen(false)} title="New shopping list">
+      <Modal
+        isOpen={addOpen}
+        onClose={() => setAddOpen(false)}
+        title="New shopping list"
+      >
         <ListForm onSubmit={handleAddList} loading={adding} />
       </Modal>
 
-      <Modal isOpen={addItemOpen} onClose={() => setAddItemOpen(false)} title="Add item">
+      <Modal
+        isOpen={addItemOpen}
+        onClose={() => setAddItemOpen(false)}
+        title="Add item"
+      >
         <div className="home-page-item-list-picker">
           <label htmlFor="item-list">Add to list</label>
-          <select id="item-list" value={selectedListId} onChange={(e) => setSelectedListId(e.target.value)}>
-            {lists.map((list) => <option key={list.id} value={String(list.id)}>{list.name}</option>)}
+          <select
+            id="item-list"
+            value={selectedListId}
+            onChange={(e) => setSelectedListId(e.target.value)}
+          >
+            {lists.map((list) => (
+              <option key={list.id} value={String(list.id)}>
+                {list.name}
+              </option>
+            ))}
           </select>
         </div>
         <ItemForm onSubmit={handleAddItem} loading={addingItem} />
