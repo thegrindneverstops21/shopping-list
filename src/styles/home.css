@@ -59,21 +59,6 @@
   height: auto;
 }
 
-.home-page-add-button {
-}
-
-.home-page-add-button:hover:not(:disabled) {
-  transform: translateY(-1px);
-}
-
-.home-page-add-button svg {
-  transition: transform 0.15s;
-}
-
-.home-page-add-button:hover:not(:disabled) svg {
-  transform: scale(1.1);
-}
-
 .empty-state-image {
   display: flex;
   justify-content: center;
