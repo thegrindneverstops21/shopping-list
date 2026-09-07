@@ -16,21 +16,7 @@
   background: var(--color-primary);
   border-radius: 28px;
   padding: clamp(28px, 4vw, 52px);
-  box-shadow: 14px 18px 0 rgba(127, 98, 80, 0.14);
-  position: relative;
-  overflow: hidden;
-}
-
-.auth-brand::after {
-  content: "";
-  width: 210px;
-  height: 210px;
-  position: absolute;
-  right: -80px;
-  bottom: -90px;
-  border: 1px solid rgba(237, 228, 219, 0.22);
-  border-radius: 50%;
-  box-shadow: 0 0 0 20px rgba(237, 228, 219, 0.04), 0 0 0 40px rgba(237, 228, 219, 0.04);
+  box-shadow: 0 8px 18px rgba(127, 98, 80, 0.12);
 }
 
 .auth-brand-mark {
