@@ -7,18 +7,16 @@ Create an account, build shopping lists, tick items off right from the home page
 ## Screenshots
 
 | Home | List detail |
-|---|---|
-| ![Home page]<img width="1862" height="952" alt="image" src="https://github.com/user-attachments/assets/7222a065-2f4f-4b60-9fb8-db752db8cf71" />
- | ![List detail page]<img width="1861" height="958" alt="image" src="https://github.com/user-attachments/assets/157ecf00-5994-4656-8ea8-b8a5d5bcfef8" />
- |
+| --- | --- |
+| <img width="1862" height="952" alt="Home page" src="https://github.com/user-attachments/assets/7222a065-2f4f-4b60-9fb8-db752db8cf71" /> | <img width="1861" height="958" alt="List detail page" src="https://github.com/user-attachments/assets/157ecf00-5994-4656-8ea8-b8a5d5bcfef8" /> |
 
 | Login | Profile |
-|---|---|
-| ![Login page]<img width="1867" height="955" alt="image" src="https://github.com/user-attachments/assets/da91bdf8-c3f8-44fc-a149-263699fc89f8" />
- | ![Profile page] |<img width="1864" height="956" alt="image" src="https://github.com/user-attachments/assets/c7504914-41f6-44be-994c-200e230bd9d0" />
+| --- | --- |
+| <img width="1867" height="955" alt="Login page" src="https://github.com/user-attachments/assets/da91bdf8-c3f8-44fc-a149-263699fc89f8" /> | <img width="1864" height="956" alt="Profile page" src="https://github.com/user-attachments/assets/c7504914-41f6-44be-994c-200e230bd9d0" /> |
 
-  | ![Registration page]<img width="1854" height="951" alt="image" src="https://github.com/user-attachments/assets/6826e9ff-c7d5-4112-8607-8bca55770a01" />
-||
+| Registration |
+| --- |
+| <img width="1854" height="951" alt="Registration page" src="https://github.com/user-attachments/assets/6826e9ff-c7d5-4112-8607-8bca55770a01" /> |
 
 
 ## Live demo

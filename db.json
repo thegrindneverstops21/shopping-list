@@ -365,16 +365,6 @@
       "id": 22
     },
     {
-      "name": "MILK",
-      "quantity": 1,
-      "notes": "",
-      "category": "General",
-      "imageUrl": "https://images.unsplash.com/photo-1550583724-b2692b85b150?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8TUlMS3xlbnwwfHx8fDE3ODg3ODIzNjZ8MA&ixlib=rb-4.1.0&q=80&w=400",
-      "listId": "11",
-      "createdAt": "2026-09-07T11:59:57.455Z",
-      "id": 23
-    },
-    {
       "name": "rICE",
       "quantity": 1,
       "notes": "",
@@ -413,6 +403,16 @@
       "listId": "11",
       "createdAt": "2026-09-07T12:00:59.793Z",
       "id": 27
+    },
+    {
+      "name": "Milk",
+      "quantity": 1,
+      "notes": "",
+      "category": "Groceries",
+      "imageUrl": "https://images.unsplash.com/photo-1550583724-b2692b85b150?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MjA0fDB8MXxzZWFyY2h8MXx8TWlsa3xlbnwwfHx8fDE3ODg4NDc2NDF8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "listId": "11",
+      "createdAt": "2026-09-08T06:08:25.888Z",
+      "id": 28
     }
   ],
   "categories": [
