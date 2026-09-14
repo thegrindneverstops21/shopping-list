@@ -10,6 +10,7 @@ interface ModalProps {
 
 export default function Modal({ isOpen, onClose, title, children }: ModalProps) {
     useEffect(() => {
+        // Skip if modal is closed (no point listening for Escape)
         if (!isOpen) return;
         const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
         document.addEventListener("keydown", handler);
@@ -28,10 +29,12 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
             <div className="modal" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
                     <h2 className="modal-title">{title}</h2>
+                    {/* Close button in top right corner */}
                     <button className="modal-close" onClick={onClose} aria-label="Close" title="Close">
                         <X size={20} />
                     </button>
                 </div>
+                {/* Modal content */}
                 <div className="modal-body">{children}</div>
             </div>
         </div>

@@ -23,6 +23,9 @@ export const itemsApi = baseApi.injectEndpoints({
             query: ({id, changes}) => ({url: `/items/${id}`, method: "PATCH", body: changes}),
             invalidatesTags: ["Items"],
         }),
+        /**
+         * deleteItem: Remove an item from the list
+         */
         deleteItem: builder.mutation<void, string>({
             query: (id) => ({ url: `/items/${id}`, method: "DELETE" }),
             invalidatesTags: ["Items"],

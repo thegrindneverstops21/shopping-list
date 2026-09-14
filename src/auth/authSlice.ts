@@ -13,6 +13,9 @@ const initialState: AuthState = {
     isAuthenticated: !!storedUser,
 };
 
+/**
+ * authSlice: Defines the auth state and how it changes
+ */
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -20,11 +23,13 @@ const authSlice = createSlice({
         setSession(state, action: PayloadAction<SafeUser>) {
             state.user = action.payload;
             state.isAuthenticated = true;
+            // localStorage: Browser storage that persists across page refreshes
             localStorage.setItem("currentUser", JSON.stringify(action.payload));
         },
         clearSession(state) {
             state.user = null;
             state.isAuthenticated = false;
+            // Remove user data from localStorage
             localStorage.removeItem("currentUser");
         },
     },

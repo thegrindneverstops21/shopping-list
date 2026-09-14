@@ -63,24 +63,35 @@ export default function ItemForm({
     reader.onload = () =>
       setValues((prev) => ({ ...prev, imageUrl: reader.result as string }));
     reader.readAsDataURL(file);
+      // Get the selected file from the input
   }
 
+    
+      // Create FileReader to read file into memory
   async function handleSubmit(e: FormEvent) {
+    
+      // When file finishes reading, store result in state
     e.preventDefault();
     
+    
+      // Start reading the file as a data URL
     const trimmedName = values.name.trim();
     if (!trimmedName) {
       setNameError("Item name is required");
       return;
+      // Prevent browser default form submission
     }
     setNameError("");
+      // Validate name field
 
     let finalImageUrl = values.imageUrl;
 
     // Only search Unsplash if the user hasn't manually provided an image
     if (!finalImageUrl) {
+      // Clear error if validation passes
       try {
         const { data: photos } = await triggerSearch(trimmedName);
+      // Variable to hold the final image URL
         
         if (photos && photos.length > 0) {
           const firstPhoto = photos[0];
