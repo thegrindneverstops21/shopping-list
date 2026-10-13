@@ -5,6 +5,7 @@ import uiReducer from '../ui/uiSlice';
 import { unsplashApi } from "../api/unsplashApi";
 
 export const store = configureStore({
+    // Reducers hold app state; API middleware manages requests and cached responses.
     reducer: {
         auth: authReducer,
         ui: uiReducer,
