@@ -29,7 +29,7 @@ Create an account, build shopping lists, tick items off right from the home page
 | Layer | Tech |
 |---|---|
 | UI | React 19, TypeScript, Vite |
-| Routing | React Router v6 |
+| Routing | React Router v7 |
 | State | Redux Toolkit |
 | Data fetching | RTK Query |
 | Backend | json-server (mock REST API over `db.json`) |
@@ -56,10 +56,15 @@ cd shopping-list
 npm install
 ```
 
-Create a `.env` file in the project root:
+Copy `.env.example` to `.env` in the project root and edit the values:
+
+```dotenv
 VITE_AES_SECRET=a-long-random-string
 VITE_UNSPLASH_ACCESS_KEY=your-unsplash-access-key
 VITE_API_BASE_URL=http://localhost:3001
+```
+
+Keep the AES key unchanged: accounts created with one key cannot be decrypted with another. Restart Vite after changing `.env`. The Unsplash key is optional; without it, items can still be saved and images can be uploaded manually.
 
 
 Get an Unsplash key free at [unsplash.com/developers](https://unsplash.com/developers) (Demo tier, 50 requests per hour, plenty for this project).
@@ -81,7 +86,7 @@ ui/ uiSlice (toasts)
 components/ shared primitives: Button, Modal, ConfirmDialog, FormField,
 Navbar, Layout, ProtectedRoute, PublicOnlyRoute, ToastContainer
 features/ LoginPage, RegisterPage, ListCard, ListForm, ItemCard,
-ItemForm, ImagePicker, ShareModal
+ItemForm, ShareModal
 pages/ HomePage, ListDetailPage, ProfilePage
 utils/ encryption, validation, categories, useTheme
 types/ users, list, item
@@ -106,6 +111,22 @@ json-server has no logic of its own. It's a REST mock that reads and writes `db.
 - **Render free tier has ephemeral disk.** The hosted json-server resets to its committed `db.json` after a period of inactivity, which is fine for a live demo in one sitting but not for long-term data persistence.
 - **Cold starts.** The first request after inactivity can take 30 to 60 seconds while the free instance spins back up.
 - **No real backend security.** Auth is enforced client-side only, and the raw json-server endpoints are unprotected if hit directly.
+- **AES is a learning exercise.** Vite exposes the encryption key in the browser bundle. Production authentication needs server-side password hashing and verified sessions.
+- **Deletes are not transactions.** If a cascading delete fails halfway through, some records may already have been removed. The app reports the error rather than claiming success.
+
+## Understanding the code
+
+`main.tsx` starts React and provides the Redux store. `App.tsx` chooses a page from the URL. Pages collect user input and call hooks from `api/`; those hooks send HTTP requests to json-server. Calling `.unwrap()` gives the response data on success and throws on failure, so `try/catch` can show feedback.
+
+Registration validates the form, checks for an existing email, encrypts the password, and posts the account. `toSafeUser()` selects profile fields before saving the session, so the password stays out of `localStorage`. Email comparisons ignore surrounding spaces and letter case. Sharing lets recipients view and edit items; only the owner sees share and delete-list controls. These controls are UI rules, since the mock API does not enforce permissions.
+
+For a registration failure, check that both terminals are running, `.env` contains `VITE_AES_SECRET`, and `VITE_API_BASE_URL` points to the API. The form now shows setup and connection errors directly.
+
+```bash
+npm run lint
+npm run build
+npm test
+```
 
 ## Author
 
