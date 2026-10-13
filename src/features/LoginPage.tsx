@@ -6,6 +6,8 @@ import { isValidEmail } from "../utils/validation";
 import { addToast } from "../ui/uiSlice";
 import { decryptPassword } from "../utils/encryption";
 import { setSession } from "../auth/authSlice";
+import { normalizeEmail, toSafeUser } from "../utils/users";
+import { getApiErrorMessage } from "../utils/apiErrors";
 import FormField from "../components/FormField";
 import { ArrowRight, Check, ShoppingBasket, UserPlus } from "lucide-react";
 
@@ -23,20 +25,25 @@ export default function LoginPage() {
 
     async function onSubmit(e: FormEvent) {
         e.preventDefault();
+        if (submission) return;
         setFormError("")
         setAccountNotFound(null);
 
-        if (!isValidEmail(email)) {
+        if (!isValidEmail(normalizeEmail(email))) {
             setFieldErrors({ email: "Please enter a valid email address" });
             return;
         }
         setFieldErrors({});
+        if (!password) {
+            setFieldErrors({ password: "Password is required" });
+            return;
+        }
 
         setSubmission(true);
         try {
             const matches = await findUserByEmail(email).unwrap();
             if (matches.length === 0) {
-                setAccountNotFound(email);
+                setAccountNotFound(normalizeEmail(email));
                 return;
             }
 
@@ -47,13 +54,14 @@ export default function LoginPage() {
                 dispatch(addToast("Incorrect email or password", "error"));
                 return;
             }
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { password: _p, ...safeUser } = user;
-            dispatch(setSession(safeUser));
+            // Store profile information only after the password matches.
+            dispatch(setSession(toSafeUser(user)));
             dispatch(addToast("Welcome back", "success"));
             navigate("/");
-        } catch {
-            dispatch(addToast("Something went wrong. Please try again", "error"));
+        } catch (error) {
+            const message = getApiErrorMessage(error, "Login failed. Please try again.");
+            setFormError(message);
+            dispatch(addToast(message, "error"));
         } finally {
             setSubmission(false);
         }
@@ -81,7 +89,7 @@ export default function LoginPage() {
                     <div className="auth-alert">
                         <p>We couldn't find an account for <strong>{accountNotFound}</strong></p>
                         <Link to="/register" state={{ email: accountNotFound }} className="auth-alert-link">
-                            <UserPlus size={14} /> Create acccount
+                            <UserPlus size={14} /> Create account
                         </Link>
                     </div>
                 )}
@@ -102,6 +110,7 @@ export default function LoginPage() {
                     name="password"
                     type="password"
                     value={password}
+                    error={fieldErrors.password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
