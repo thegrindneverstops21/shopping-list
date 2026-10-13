@@ -74,7 +74,11 @@ export default function RegisterPage() {
             dispatch(addToast("Account created successfully, welcome!", "success"));
             navigate("/");
         } catch (error) {
-            const message = getApiErrorMessage(error, "Registration failed. Please try again.");
+            let message = getApiErrorMessage(error, "Registration failed. Please try again.");
+            // A timed-out response does not prove that the server failed to save the account.
+            if (typeof error === "object" && error !== null && "status" in error && error.status === "TIMEOUT_ERROR") {
+                message += " If your account was already created, use the Login link below.";
+            }
             setFormError(message);
             dispatch(addToast(message, "error"));
         } finally {
