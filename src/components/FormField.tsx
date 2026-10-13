@@ -25,6 +25,9 @@ export default function FormField({ label, name, type = "text", value, onChange,
             <input
                 id={name}
                 name={name}
+                required={required}
+                aria-invalid={!!error}
+                aria-describedby={error ? `${name}-error` : undefined}
                 // Default to "text" if not specified (can override with "email", "password", etc)
                 type={type}
                 // Controlled component: value comes from parent state
@@ -37,7 +40,7 @@ export default function FormField({ label, name, type = "text", value, onChange,
             />
             
             {/* Display error message if present */}
-            {error && <span className="field-error">{error}</span>}
+            {error && <span id={`${name}-error`} className="field-error">{error}</span>}
         </div>
     )
 }
