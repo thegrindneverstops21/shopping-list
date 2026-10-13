@@ -6,6 +6,7 @@ import { isValidEmail } from "../utils/validation";
 import { addToast } from "../ui/uiSlice";
 import FormField from "../components/FormField";
 import Button from "../components/Button";
+import { normalizeEmail } from "../utils/users";
 
 interface ShareModalProps {
   list: ShoppingList;
@@ -19,11 +20,12 @@ export default function ShareModal({ list, onClose }: ShareModalProps) {
   const dispatch = useAppDispatch();
 
   async function handleShare() {
-    if (!isValidEmail(email)) { setEmailError("Enter a valid email address"); return; }
-    if (list.sharedWith.includes(email)) { setEmailError("Already shared with this email"); return; }
+    const recipient = normalizeEmail(email);
+    if (!isValidEmail(recipient)) { setEmailError("Enter a valid email address"); return; }
+    if (list.sharedWith.some((address) => normalizeEmail(address) === recipient)) { setEmailError("Already shared with this email"); return; }
     setEmailError("");
     try {
-      await shareList({ id: list.id, sharedWith: [...list.sharedWith, email] }).unwrap();
+      await shareList({ id: list.id, sharedWith: [...list.sharedWith, recipient] }).unwrap();
       dispatch(addToast(`List shared with ${email}`, "success"));
       onClose();
     } catch {
@@ -52,7 +54,7 @@ export default function ShareModal({ list, onClose }: ShareModalProps) {
         value={email}
         onChange={(ev) => setEmail(ev.target.value)}
         error={emailError}
-        placeholder='"example@gmail.com"'
+        placeholder="example@gmail.com"
       />
       <div className="form-actions">
         <Button variant="ghost" type="button" onClick={onClose} disabled={isLoading}>
