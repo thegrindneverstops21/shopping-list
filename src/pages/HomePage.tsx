@@ -23,7 +23,7 @@ export default function HomePage() {
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
 
-  const { data: lists = [], isLoading } = useGetListQuery(user?.id ?? "", {
+  const { data: lists = [], isLoading, isError, refetch } = useGetListQuery({ userId: user?.id ?? "", email: user?.email ?? "" }, {
     skip: !user,
   });
   const [addList, { isLoading: adding }] = useAddListMutation();
@@ -70,6 +70,15 @@ export default function HomePage() {
     return (
       <div className="home-page-loader">
         <Loader size={28} className="spin" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="home-page">
+        <p role="alert">Could not load your lists. Check that the API is running.</p>
+        <Button onClick={() => refetch()}>Try again</Button>
       </div>
     );
   }
