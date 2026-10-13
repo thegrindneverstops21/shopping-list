@@ -7,6 +7,8 @@ export const baseApi = createApi({
     reducerPath: "api",
     baseQuery: fetchBaseQuery({
         baseUrl: apiBaseUrl,
+        // Release loading states if the server accepts a connection but never responds.
+        timeout: 15000,
     }),
     tagTypes: ["Users", "Lists", "Items"],
     
