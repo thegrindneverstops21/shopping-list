@@ -28,16 +28,16 @@ export default function ListDetailPage() {
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
 
-  const { data: lists = [] } = useGetListQuery(user?.id ?? "", { skip: !user });
+  const { data: lists = [], isLoading: loadingLists, isError: listError } = useGetListQuery({ userId: user?.id ?? "", email: user?.email ?? "" }, { skip: !user });
   const list = lists.find((list: (typeof lists)[number]) => String(list.id) === id);
 
   const q = searchParams.get("q") ?? "";
   const sortBy = (searchParams.get("sort") as "name" | "category" | "createdAt") ?? "name";
   const order = (searchParams.get("order") as "asc" | "desc") ?? "asc";
 
-  const { data: items = [], isLoading } = useGetItemsQuery(
+  const { data: items = [], isLoading, isError: itemError } = useGetItemsQuery(
     { listId: id ?? "", q: q || undefined, sortBy, order },
-    { skip: !id }
+    { skip: !id || !list }
   );
   const [addItem, { isLoading: adding }] = useAddItemMutation();
 
@@ -67,6 +67,9 @@ export default function ListDetailPage() {
     }
   }
 
+  // A pending request is different from a list that genuinely does not exist.
+  if (loadingLists) return <p className="detail-page-loading">Loading list...</p>;
+  if (listError) return <p role="alert">Could not load the list. Check your connection and try again.</p>;
   if (!list) {
     return (
       <div className="detail-page">
@@ -112,7 +115,7 @@ export default function ListDetailPage() {
         </div>
       </div>
 
-      {isLoading ? (
+      {itemError ? <p role="alert">Could not load items. Please try again.</p> : isLoading ? (
         <p className="detail-page-loading">Loading items...</p>
       ) : items.length === 0 ? (
         <EmptyState
