@@ -11,6 +11,7 @@ import ListDetailPage from "./pages/ListDetailPage";
 import ToastContainer from "./components/ToastContainer";
 
 export default function App() {
+  // Route guards decide whether to show a page or redirect to login/home.
   return (
     <>
       <Routes>
