@@ -39,6 +39,14 @@
       "phoneNumber": "0723456879",
       "password": "U2FsdGVkX18McNS0ynEA9FWWRpDi6/TGKcKGhHXF2kU=",
       "id": 4
+    },
+    {
+      "name": "ee",
+      "surname": "eee",
+      "email": "dddd@gmail.com",
+      "phoneNumber": "0798696422",
+      "password": "U2FsdGVkX19G/p3mK/ENbdpQgr2QGl7LwaZaByfSohQ=",
+      "id": 5
     }
   ],
   "shoppingLists": [
