@@ -6,15 +6,31 @@ interface AuthState {
     isAuthenticated: boolean;
 }
 
-const storedUser = localStorage.getItem("currentUser");
+function readStoredUser(): SafeUser | null {
+    // Saved browser data can be invalid or left over from an older app version.
+    try {
+        const saved: unknown = JSON.parse(localStorage.getItem("currentUser") ?? "null");
+        if (typeof saved !== "object" || saved === null) return null;
+        const fields = ["name", "surname", "email", "phoneNumber"] as const;
+        if (!("id" in saved) || (typeof saved.id !== "string" && typeof saved.id !== "number")) return null;
+        if (!fields.every((field) => field in saved && typeof saved[field as keyof typeof saved] === "string")) return null;
+        const profile = saved as SafeUser;
+        return { id: String(profile.id), name: profile.name, surname: profile.surname,
+            email: profile.email, phoneNumber: profile.phoneNumber };
+    } catch {
+        return null;
+    }
+}
+
+const storedUser = readStoredUser();
 
 const initialState: AuthState = {
-    user: storedUser ? (JSON.parse(storedUser) as SafeUser) : null,
+    user: storedUser,
     isAuthenticated: !!storedUser,
 };
 
 /**
- * authSlice: Defines the auth state and how it changes
+ * Defines the auth state and how it changes
  */
 const authSlice = createSlice({
     name: "auth",
@@ -24,13 +40,17 @@ const authSlice = createSlice({
             state.user = action.payload;
             state.isAuthenticated = true;
             // localStorage: Browser storage that persists across page refreshes
-            localStorage.setItem("currentUser", JSON.stringify(action.payload));
+            try { localStorage.setItem("currentUser", JSON.stringify(action.payload)); } catch {
+                // Keep the current session usable when browser storage is disabled.
+            }
         },
         clearSession(state) {
             state.user = null;
             state.isAuthenticated = false;
             // Remove user data from localStorage
-            localStorage.removeItem("currentUser");
+            try { localStorage.removeItem("currentUser"); } catch {
+                // Redux still clears the session if browser storage is unavailable.
+            }
         },
     },
 });
