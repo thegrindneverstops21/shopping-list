@@ -2,6 +2,9 @@
 export function getApiErrorMessage(error: unknown, fallback: string): string {
     if (error instanceof Error) return error.message;
     if (typeof error === "object" && error !== null) {
+        if ("status" in error && error.status === "TIMEOUT_ERROR") {
+            return "The API took too long to respond. Check that the backend is running and try again.";
+        }
         if ("status" in error && error.status === "FETCH_ERROR") {
             return "Cannot reach the API. Check your connection and that the backend is running.";
         }
