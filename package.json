@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "test": "node tests/integration.mjs",
     "preview": "vite preview",
     "server": "node server.cjs",
     "start": "node server.cjs"

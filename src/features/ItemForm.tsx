@@ -39,6 +39,7 @@ export default function ItemForm({
     ...initial,
   });
   const [nameError, setNameError] = useState("");
+  const [quantityError, setQuantityError] = useState("");
 
   // Hook into Unsplash API
   const [triggerSearch, { isFetching: isSearchingImage }] = useLazySearchPhotosQuery();
@@ -60,45 +61,44 @@ export default function ItemForm({
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
+    // A data URL lets the mock API store an uploaded image without a file server.
     reader.onload = () =>
       setValues((prev) => ({ ...prev, imageUrl: reader.result as string }));
     reader.readAsDataURL(file);
-      // Get the selected file from the input
   }
 
-    
-      // Create FileReader to read file into memory
   async function handleSubmit(e: FormEvent) {
-    
-      // When file finishes reading, store result in state
+    // Handle submission in React instead of letting the browser reload the page.
     e.preventDefault();
-    
-    
-      // Start reading the file as a data URL
+    if (isSubmitting) return;
     const trimmedName = values.name.trim();
     if (!trimmedName) {
       setNameError("Item name is required");
       return;
-      // Prevent browser default form submission
     }
     setNameError("");
-      // Validate name field
+    // noValidate disables browser validation, so quantity needs an explicit check too.
+    if (!Number.isInteger(values.quantity) || values.quantity < 1) {
+      setQuantityError("Quantity must be a whole number of at least 1");
+      return;
+    }
+    setQuantityError("");
 
     let finalImageUrl = values.imageUrl;
 
     // Only search Unsplash if the user hasn't manually provided an image
-    if (!finalImageUrl) {
-      // Clear error if validation passes
+    if (!finalImageUrl && UNSPLASH_ACCESS_KEY && UNSPLASH_ACCESS_KEY !== "your-unsplash-access-key") {
       try {
         const { data: photos } = await triggerSearch(trimmedName);
-      // Variable to hold the final image URL
         
         if (photos && photos.length > 0) {
           const firstPhoto = photos[0];
           finalImageUrl = firstPhoto.urls.small;
           
-          // Silently trigger the Unsplash download endpoint
-          fetch(`${firstPhoto.links.download_location}&client_id=${UNSPLASH_ACCESS_KEY}`).catch(() => {});
+          // Record photo use with Unsplash. The URL may or may not already have query parameters.
+          const downloadUrl = new URL(firstPhoto.links.download_location);
+          downloadUrl.searchParams.set("client_id", UNSPLASH_ACCESS_KEY);
+          fetch(downloadUrl).catch(() => {});
         }
       } catch (error) {
         console.error("Failed to fetch image from Unsplash:", error);
@@ -106,7 +106,7 @@ export default function ItemForm({
     }
 
     // Pass the final values (including the automatically fetched image) to the parent
-    onSubmit({ ...values, imageUrl: finalImageUrl });
+    onSubmit({ ...values, name: trimmedName, imageUrl: finalImageUrl });
   }
 
   return (
@@ -127,9 +127,13 @@ export default function ItemForm({
           name="quantity"
           type="number"
           min={1}
+          step={1}
+          aria-invalid={!!quantityError}
+          aria-describedby={quantityError ? "quantity-error" : undefined}
           value={values.quantity}
           onChange={onChange}
         />
+        {quantityError && <span id="quantity-error" className="field-error">{quantityError}</span>}
       </div>
       <div className="form-field">
         <label htmlFor="category">Category</label>

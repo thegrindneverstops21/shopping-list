@@ -3,7 +3,8 @@ import { baseApi } from "./baseApi";
 
 function buildItemsQuery({ listId, q, sortBy, order }: ItemQueryParams): string {
     const params = new URLSearchParams({ listId });
-    if (q) params.set("name_like", q);
+    // json-server interprets _like as a regular expression; escape typed punctuation.
+    if (q) params.set("name_like", q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
     if (sortBy) params.set("_sort", sortBy);
     if (order) params.set("_order", order);
     return `/items?${params.toString()}`;

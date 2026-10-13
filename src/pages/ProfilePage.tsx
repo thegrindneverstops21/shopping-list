@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../utils/useTheme";
-import { useDeleteAccountMutation, useUpdateUserMutation } from "../api/authApi";
+import { useDeleteAccountMutation, useUpdateUserMutation, useLazyFindUserByEmailQuery } from "../api/authApi";
+import { normalizeEmail, toSafeUser } from "../utils/users";
+import { getApiErrorMessage } from "../utils/apiErrors";
 import { clearSession, setSession } from "../auth/authSlice";
 import { isValidEmail, isValidPhoneNumber } from "../utils/validation";
 import { addToast } from "../ui/uiSlice";
@@ -24,6 +26,7 @@ export default function ProfilePage() {
 
     const [updateUser, { isLoading: updating }] = useUpdateUserMutation();
     const [deleteAccount, { isLoading: deletingAccount }] = useDeleteAccountMutation();
+    const [findUserByEmail, { isFetching: checkingEmail }] = useLazyFindUserByEmailQuery();
 
     const [form, setForm] = useState({
         name: user?.name ?? "",
@@ -42,22 +45,30 @@ export default function ProfilePage() {
     }
 
     async function handleUpdate() {
+        if (updating || checkingEmail) return;
+        const changes = { ...form, name: form.name.trim(), surname: form.surname.trim(),
+            email: normalizeEmail(form.email), phoneNumber: form.phoneNumber.trim() };
         const errors: typeof formErrors = {};
         if (!form.name.trim()) errors.name = "Name is required";
         if (!form.surname.trim()) errors.surname = "Surname is required";
-        if (!isValidEmail(form.email)) errors.email = "Please enter a valid email addresss";
+        if (!isValidEmail(changes.email)) errors.email = "Please enter a valid email address";
         if (!isValidPhoneNumber(form.phoneNumber)) errors.phoneNumber = "Please enter a valid phone number";
         setFormErrors(errors);
         if (Object.keys(errors).length > 0) return;
 
         try {
-            const updated = await updateUser({ id: userId, changes: form }).unwrap();
-            //eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { password, ...safeUser } = updated;
-            dispatch(setSession(safeUser));
+            // Exclude this account when checking whether someone already uses the new email.
+            const matches = await findUserByEmail(changes.email).unwrap();
+            if (matches.some((match) => String(match.id) !== String(userId))) {
+                setFormErrors({ email: "This email is already registered" });
+                return;
+            }
+            const updated = await updateUser({ id: userId, changes }).unwrap();
+            dispatch(setSession(toSafeUser(updated)));
+            setForm(changes);
             dispatch(addToast("Account updated", "success"));
-        } catch {
-            dispatch(addToast("Failed to update account", "error"));
+        } catch (error) {
+            dispatch(addToast(getApiErrorMessage(error, "Failed to update account"), "error"));
         }
     }
 
@@ -154,7 +165,7 @@ export default function ProfilePage() {
                     />
 
                     <div className="form-actions">
-                        <Button onClick={handleUpdate} disabled={updating}>{updating ? "Saving..." : "Save changes"}</Button>
+                        <Button onClick={handleUpdate} disabled={updating || checkingEmail}>{updating || checkingEmail ? "Saving..." : "Save changes"}</Button>
                     </div>
                 </div>
                 )}

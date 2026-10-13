@@ -7,6 +7,8 @@ import { addToast } from "../ui/uiSlice";
 import { setSession } from "../auth/authSlice";
 import FormField from "../components/FormField";
 import { ArrowRight, Check, ShoppingBasket } from "lucide-react";
+import { normalizeEmail, toSafeUser } from "../utils/users";
+import { getApiErrorMessage } from "../utils/apiErrors";
 
 interface RegisterFormValues {
     name: string;
@@ -32,6 +34,7 @@ export default function RegisterPage() {
     });
     const [errors, setErrors] = useState<RegisterFormErrors>({});
     const [submission, setSubmission] = useState(false);
+    const [formError, setFormError] = useState("");
 
     const [findUserByEmail] = useLazyFindUserByEmailQuery();
     const [registerUser] = useRegisterUserMutation();
@@ -45,29 +48,39 @@ export default function RegisterPage() {
 
     async function onSubmit(e: FormEvent) {
         e.preventDefault();
-        const validationErrors = validateRegisterForm(values);
+        if (submission) return;
+        setFormError("");
+        // Trim contact details, but preserve passwords exactly as typed.
+        const payload = {
+            name: values.name.trim(), surname: values.surname.trim(),
+            email: normalizeEmail(values.email), phoneNumber: values.phoneNumber.trim(),
+            password: values.password,
+        };
+        const validationErrors = validateRegisterForm({ ...payload, confirmPassword: values.confirmPassword });
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length > 0) return;
 
         setSubmission(true);
         try {
-            const existing = await findUserByEmail(values.email).unwrap();
+            const existing = await findUserByEmail(payload.email).unwrap();
             if (existing.length > 0) {
                 setErrors({ email: "This email is already registered" });
                 dispatch(addToast("Email already registered", "error"));
                 return;
             }
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { confirmPassword, ...payload } = values;
+            // .unwrap() returns the new user or throws an error for catch to handle.
             const user = await registerUser(payload).unwrap();
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars 
-            const { password, ...safeUser } = user;
-
-            dispatch(setSession(safeUser));
+            dispatch(setSession(toSafeUser(user)));
             dispatch(addToast("Account created successfully, welcome!", "success"));
             navigate("/");
-        } catch {
-            dispatch(addToast("Something went wrong. Please try again", "error"));
+        } catch (error) {
+            let message = getApiErrorMessage(error, "Registration failed. Please try again.");
+            // A timed-out response does not prove that the server failed to save the account.
+            if (typeof error === "object" && error !== null && "status" in error && error.status === "TIMEOUT_ERROR") {
+                message += " If your account was already created, use the Login link below.";
+            }
+            setFormError(message);
+            dispatch(addToast(message, "error"));
         } finally {
             setSubmission(false);
         }
@@ -85,6 +98,7 @@ export default function RegisterPage() {
                 </ul>
             </section>
             <form className="auth-card" onSubmit={onSubmit} noValidate>
+                {formError && <p className="form-error-banner" role="alert">{formError}</p>}
                 <div className="auth-card-heading">
                     <p className="auth-eyebrow">start with a clean slate</p>
                     <h2>Create your account</h2>

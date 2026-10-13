@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { ShoppingList } from "../types/list";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useGetItemsQuery, useUpdateItemMutation } from "../api/itemsApi";
 import { useDeleteListMutation, useUpdateListMutation } from "../api/listsApi";
 import { addToast } from "../ui/uiSlice";
@@ -23,6 +23,8 @@ export default function ListCard({ list }: ListCardProps) {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.auth.user);
+  const isOwner = String(list.userId) === String(user?.id);
 
   const { data: items = [] } = useGetItemsQuery({ listId: list.id });
   const [updateList, { isLoading: updating }] = useUpdateListMutation();
@@ -86,7 +88,19 @@ export default function ListCard({ list }: ListCardProps) {
                 </li>
               ))}
               {items.length > 6 && (
-                <li className="list-card-more" onClick={navigateToList} role="button" tabIndex={0} title="Open list">
+                <li
+                  className="list-card-more"
+                  onClick={navigateToList}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      navigateToList();
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  title="Open list"
+                >
                   <Ellipsis size={8}/> {items.length - 6} more
                 </li>
               )}
@@ -101,12 +115,12 @@ export default function ListCard({ list }: ListCardProps) {
           <button className="list-card-btn" onClick={() => setEditOpen(true)} aria-label="Edit list" title="Edit list">
             <Pencil size={15} />
           </button>
-          <button className="list-card-btn list-card-btn-danger" onClick={() => setDeleteOpen(true)} aria-label="Delete list" title="Delete list">
+          {isOwner && <button className="list-card-btn list-card-btn-danger" onClick={() => setDeleteOpen(true)} aria-label="Delete list" title="Delete list">
             <Trash2 size={15} />
-          </button>
-          <button className="list-card-btn" onClick={() => setShareOpen(true)} aria-label="Share list" title="Share list">
+          </button>}
+          {isOwner && <button className="list-card-btn" onClick={() => setShareOpen(true)} aria-label="Share list" title="Share list">
             <Share2 size={15} />
-          </button>
+          </button>}
         </div>
       </div>
 
